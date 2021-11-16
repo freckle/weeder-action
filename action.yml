@@ -53,9 +53,10 @@ runs:
         echo "::set-output name=log::$tmp"
 
         cd '${{ inputs.working-directory }}'
+        prefix=$(echo '${{ inputs.working-directory }}' | sed 's|/$||')/
         stack --stack-yaml '${{ inputs.stack-yaml }}' exec -- \
           weeder ${{ inputs.weeder-arguments }} |
-          sed 's/$/ is not used by any defined root/' |
+          sed "s|^|$prefix|; "'s/$/ is not used by any defined root/' |
           tee "$tmp" || true
 
         if ${{ inputs.fail }} && [[ -s "$tmp" ]]; then
