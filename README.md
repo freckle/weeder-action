@@ -5,8 +5,6 @@ and annotate the Build with their locations.
 
 ![Example in Diff](./example-in-diff.png)
 
-![Example in Workflow](./example-in-workflow.png)
-
 ## Prerequisites
 
 See the [Weeder README][weeder] for project requirements.
