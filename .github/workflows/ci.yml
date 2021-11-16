@@ -1,0 +1,27 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: freckle/stack-cache-action@main
+        with: { working-directory: example }
+      - uses: freckle/stack-action@main
+        with: { working-directory: example }
+
+      - id: weeder
+        uses: ./
+        with:
+          working-directory: example
+          weeder-version: 2.2.0
+          fail: false
+
+      - run: |
+          # Expected to find this unused function
+          grep -Fq 'src/Lib.hs:12: goodbyeWorld' "${{ steps.weeder.outputs.log }}"
