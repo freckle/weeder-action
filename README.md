@@ -16,9 +16,9 @@ See the [Weeder README][weeder] for project requirements.
 You will need to run this step in the same Job as you compile your project, or
 make the `.hie` files available some other way.
 
-This Action only supports [Stack]-based projects at this time: it uses `stack
-install` to install `weeder` and `stack exec` to run it. PRs are very welcome to
-support alternatives such as Cabal or Nix.
+This Action only supports [Stack]-based projects at this time: it uses
+`stack install` to install `weeder` and `stack exec` to run it. PRs are very
+welcome to support alternatives such as Cabal or Nix.
 
 [stack]: https://docs.haskellstack.org/en/stable/README/
 
