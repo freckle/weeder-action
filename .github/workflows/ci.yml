@@ -30,4 +30,4 @@ jobs:
 
       - run: |
           # Expected to find this unused function
-          grep -Fq 'src/Lib.hs:12: goodbyeWorld' "${{ steps.weeder.outputs.log }}"
+          grep -F goodbyeWorld "${{ steps.weeder.outputs.log }}"
