@@ -7,15 +7,18 @@ TODO: image
 
 ## Prerequisites
 
-See the [Weeder README][weeder] for setting up your project generally. You will
-need to run this step in the same Job as you compile your project, or make the
-`.hie` files available some other way.
+See the [Weeder README][weeder] for project requirements.
 
 [weeder]: https://github.com/ocharles/weeder#readme
 
-This Action expects a [Stack] project, it will use `stack install` to install
-`weeder` and `stack exec` to run it. PRs are very welcome to support
-alternatives such as plain Cabal or Nix.
+You will need to run this step in the same Job as you compile your project, or
+make the `.hie` files available some other way.
+
+This Action only supports [Stack]-based projects at this time: it uses `stack
+install` to install `weeder` and `stack exec` to run it. PRs are very welcome to
+support alternatives such as Cabal or Nix.
+
+[stack]: https://docs.haskellstack.org/en/stable/README/
 
 ## Usage
 
@@ -29,7 +32,7 @@ steps:
   - uses: freckle/weeder-action@main
 ```
 
-## Options
+## Inputs
 
 See [`action.yml`](./action.yml) for a complete and up to date list.
 
@@ -39,6 +42,6 @@ This Action sets an output named `log` to the path containing the output of
 running `weeder`. This can be useful if you use `fail: false` and wish to do
 something on that output yourself afterwards.
 
---
+---
 
 [LICENSE](./LICENSE)
