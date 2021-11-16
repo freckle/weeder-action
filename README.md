@@ -3,7 +3,9 @@
 GitHub Action to run Weeder to find any unused functions in a Haskell project
 and annotate the Build with their locations.
 
-TODO: image
+![Example in Workflow](./example-in-workflow.png)
+
+TODO: image in PR
 
 ## Prerequisites
 
