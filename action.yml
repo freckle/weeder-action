@@ -20,7 +20,7 @@ inputs:
     default: --require-hs-files
   fail:
     description: Fail the build if unused functions found? (default true)
-    requied: true
+    required: true
     default: true
 outputs:
   log:
