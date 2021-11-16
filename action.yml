@@ -8,7 +8,7 @@ inputs:
   stack-yaml:
     description: Path to stack.yaml, relative to working-directory
     required: true
-    stack-yaml: stack.yaml
+    default: stack.yaml
   weeder-version:
     description: Version of weeder to install (default latest)
     required: true
@@ -20,7 +20,7 @@ inputs:
     default: --require-hs-files
   fail:
     description: Fail the build if unused functions found? (default true)
-    requied: true
+    required: true
     default: true
 outputs:
   log:

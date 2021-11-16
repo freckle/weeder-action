@@ -10,10 +10,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+
       - uses: freckle/stack-cache-action@main
-        with: { working-directory: example }
+        with:
+          working-directory: example
+
       - uses: freckle/stack-action@main
-        with: { working-directory: example }
+        with:
+          working-directory: example
+          hlint: false
+          weeder: false
 
       - id: weeder
         uses: ./
@@ -24,4 +30,4 @@ jobs:
 
       - run: |
           # Expected to find this unused function
-          grep -Fq 'src/Lib.hs:12: goodbyeWorld' "${{ steps.weeder.outputs.log }}"
+          grep -F goodbyeWorld "${{ steps.weeder.outputs.log }}"
