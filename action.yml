@@ -46,7 +46,7 @@ runs:
       name: Run weeder
       shell: bash
       run: |
-        echo "::add-matcher::matcher.json"
+        echo "::add-matcher::${{ github.action_path }}/matcher.json"
         trap 'echo "::remove-matcher owner=freckle-weeder::"' EXIT
 
         tmp=$(mktemp)
