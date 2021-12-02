@@ -25,11 +25,9 @@ welcome to support alternatives such as Cabal or Nix.
 ```yaml
 steps:
   - uses: actions/checkout@v2
-  - uses: freckle/stack-cache-action@main
-  - uses: freckle/stack-action@main
-    with:
-      weeder: false # We'll be removing this functionality soon
-  - uses: freckle/weeder-action@main
+  - uses: freckle/stack-cache-action@v1
+  - uses: freckle/stack-action@v3
+  - uses: freckle/weeder-action@v1
 ```
 
 ## Inputs
