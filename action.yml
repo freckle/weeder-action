@@ -50,7 +50,7 @@ runs:
         trap 'echo "::remove-matcher owner=freckle-weeder::"' EXIT
 
         tmp=$(mktemp)
-        echo "::set-output name=log::$tmp"
+        echo "log=$tmp" >>"$GITHUB_OUTPUT"
 
         cd '${{ inputs.working-directory }}'
         prefix=$(echo '${{ inputs.working-directory }}' | sed 's|/$||')/
