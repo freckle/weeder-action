@@ -39,10 +39,21 @@ jobs:
     steps:
       - id: prep
         run: |
-          printf 'resolver: ${{ matrix.resolver }}\npackages: []\n' >> stack.yaml
-          echo 'archive=weeder-${{ matrix.version }}-${{ matrix.suffix }}' >>"$GITHUB_OUTPUT"
+          archive=weeder-${{ matrix.version }}-${{ matrix.suffix }}
+          needed=true
 
-      - uses: actions/cache@v3
+          # TODO
+          # needed=$(gh release view Binaries --json assets --jq \
+          #   ".assets[] | select(.name == \"$archive\") | \"true\"")
+
+          printf 'resolver: ${{ matrix.resolver }}\npackages: []\n' >> stack.yaml
+          echo "archive=$archive" >>"$GITHUB_OUTPUT"
+          echo "needed=$needed" >>"$GITHUB_OUTPUT"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - if: ${{ steps.prep.outputs.needed == 'true' }}
+        uses: actions/cache@v3
         with:
           path: |
             ~/.stack
@@ -52,14 +63,16 @@ jobs:
             ${{ runner.os }}-stack-${{ matrix.resolver }}-
             ${{ runner.os }}-stack-
 
-      - run: stack install weeder-${{ matrix.version }} --local-bin-path .
+      - if: ${{ steps.prep.outputs.needed == 'true' }}
+        run: stack install weeder-${{ matrix.version }} --local-bin-path .
 
-      - if: ${{ matrix.os != 'windows' }}
+      - if: ${{ steps.prep.outputs.needed == 'true' && matrix.os != 'windows' }}
         run: tar -cvzf '${{ steps.prep.outputs.archive }}' ./weeder
 
-      - if: ${{ matrix.os == 'windows' }}
+      - if: ${{ steps.prep.outputs.needed == 'true' && matrix.os == 'windows' }}
         run: zip '${{ steps.prep.outputs.archive }}' ./weeder
 
-      - run: gh --repo '${{ github.repo }}' release upload Binaries '${{ steps.prep.outputs.archive }}' --clobber
+      - if: ${{ steps.prep.outputs.needed == 'true' }}
+        run: gh --repo '${{ github.repository }}' release upload Binaries '${{ steps.prep.outputs.archive }}'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
