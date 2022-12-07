@@ -40,8 +40,9 @@ jobs:
       - id: prep
         run: |
           archive=weeder-${{ matrix.version }}-${{ matrix.suffix }}
-          needed=$(gh release view Binaries --json assets --jq \
-            ".assets[] | select(.name == \"$archive\") | \"true\"")
+          needed=$(gh --repo '${{ github.repository }}' release view Binaries \
+            --json assets \
+            --jq ".assets[] | select(.name == \"$archive\") | \"true\"")
 
           printf 'resolver: ${{ matrix.resolver }}\npackages: []\n' >> stack.yaml
           echo "archive=$archive" >>"$GITHUB_OUTPUT"
