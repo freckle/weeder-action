@@ -1,23 +1,18 @@
 name: Weeder
 description: Annotate unused functions in a Haskell project
 inputs:
-  working-directory:
-    description: Change to this directory before operating
+  ghc-version:
+    description: Full version of GHC your project uses (required)
     required: true
-    default: .
-  stack-yaml:
-    description: Path to stack.yaml, relative to working-directory
-    required: true
-    default: stack.yaml
-  weeder-version:
-    description: Version of weeder to install (default latest)
-    required: true
-    default: ""
   weeder-arguments:
     description: |
       Arguments to pass when invoking weeder (default --require-hs-files)
     required: true
     default: --require-hs-files
+  working-directory:
+    description: Change to this directory before operating
+    required: true
+    default: .
   fail:
     description: Fail the build if unused functions found? (default true)
     required: true
@@ -30,17 +25,11 @@ runs:
   using: composite
   steps:
     - name: Install weeder
-      shell: bash
-      run: |
-        if [[ -n "${{ inputs.weeder-version }}" ]]; then
-          package=weeder-${{ inputs.weeder-version }}
-        else
-          package=weeder
-        fi
-
-        cd '${{ inputs.working-directory }}'
-        stack --stack-yaml '${{ inputs.stack-yaml }}' install \
-          --copy-compiler-tool "$package"
+      uses: pbrisbin/setup-tool-action@v1.0.0
+      with:
+        name: weeder
+        version: ${{ inputs.ghc-version }}
+        url: "https://github.com/freckle/weeder-action/releases/download/Binaries/{name}-{version}-{os}-{arch}.{ext}"
 
     - id: weeder
       name: Run weeder
@@ -54,8 +43,7 @@ runs:
 
         cd '${{ inputs.working-directory }}'
         prefix=$(echo '${{ inputs.working-directory }}' | sed 's|/$||')/
-        stack --stack-yaml '${{ inputs.stack-yaml }}' exec -- \
-          weeder ${{ inputs.weeder-arguments }} |
+        weeder ${{ inputs.weeder-arguments }} |
           sed "s|^|$prefix|; "'s/$/ is not used by any defined root/' |
           tee "$tmp" || true
 

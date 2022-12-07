@@ -1,0 +1,53 @@
+name: Binaries
+
+on:
+  pull_request:
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - id: generate
+        run: |
+          cat >>"$GITHUB_OUTPUT" <<EOM
+          matrix<<EOJSON
+          $(./.github/bin/build-binaries-matrix)
+          EOJSON
+          EOM
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    outputs:
+      matrix: ${{ steps.generate.outputs.matrix }}
+
+  binaries:
+    needs: generate
+
+    strategy:
+      matrix: ${{ fromJSON(needs.generate.outputs.matrix) }}
+      fail-fast: false
+
+    runs-on: ${{ matrix.runner }}
+    steps:
+      - uses: actions/cache@v3
+        with:
+          path: |
+            ~/.stack
+            ./.stack-work
+          key: ${{ runner.os }}-stack-${{ matrix.ghc }}
+          restore-keys: |
+            ${{ runner.os }}-stack-
+
+      - run: |
+          cat >stack.yaml <<'EOM'
+          resolver: ${{ matrix.resolver }}
+          packages: []
+          extra-deps: [${{ matrix.extra-deps }}]
+          EOM
+
+          stack install weeder-${{ matrix.version }} --local-bin-path .
+
+          ${{ matrix.zip }} '${{ matrix.asset }}' ./weeder
+          gh --repo '${{ github.repository }}' release upload '${{ matrix.release }}' '${{ matrix.asset }}'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

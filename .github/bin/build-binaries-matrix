@@ -1,0 +1,112 @@
+#!/usr/bin/env ruby
+require "json"
+
+RELEASE_NAME = "Binaries"
+
+EXISTING_ASSETS = JSON.parse(`
+  gh --repo freckle/weeder-action release view #{RELEASE_NAME} --json assets |
+    jq '.assets | map(.name)'
+`)
+
+GHCs = %W[
+  9.2.5
+  9.2.4
+  9.2.3
+  9.2.2
+  9.0.2
+  9.0.1
+  8.10.7
+  8.10.6
+  8.10.5
+  8.10.4
+  8.10.3
+  8.10.2
+  8.10.1
+  8.8.4
+  8.8.3
+  8.8.2
+  8.8.1
+]
+
+Asset = Struct.new(:ghc, :os) do
+  def name
+    "weeder-#{ghc}-#{os}-x64.#{os_attributes.fetch(:ext)}"
+  end
+
+  def include
+    { asset: name, ghc: ghc, release: RELEASE_NAME }.
+      merge(os_attributes).
+      merge(version_attributes)
+  end
+
+  def os_attributes
+    case os
+    when "linux"
+      { runner: "ubuntu-latest", ext: "tar.gz", zip: "tar -czf" }
+    when "darwin"
+      { runner: "macOS-latest", ext: "tar.gz", zip: "tar -czf" }
+    when "win32"
+      { runner: "windows-latest", ext: "zip", zip: "zip" }
+    else
+      raise "Unexpected OS: #{os}, must be linux|darwin|win32"
+    end
+  end
+
+  def version_attributes
+    case ghc
+    when /9\.2\..*/
+      {
+        version: "2.4.0",
+        resolver: "lts-20.3",
+        "extra-deps": ""
+      }
+    when /9\.0\..*/
+      {
+        version: "2.3.1",
+        resolver: "lts-19.33",
+        "extra-deps": ""
+      }
+    when /8\.10\..*/
+      {
+        version: "2.2.0",
+        resolver: "lts-18.28",
+        "extra-deps": [
+            "dhall-1.40.2",
+            "generic-lens-2.2.1.0",
+            "generic-lens-core-2.2.1.0"
+        ].join(",")
+      }
+    when /8\.8\..*/
+      {
+        version: "2.2.0",
+        resolver: "lts-16.31",
+        "extra-deps": [
+            "dhall-1.40.2",
+            "generic-lens-2.2.1.0",
+            "generic-lens-core-2.2.1.0",
+            "base16-bytestring-1.0.2.0",
+            "prettyprinter-1.7.1",
+            "repline-0.4.2.0",
+            "haskeline-0.8.2"
+        ].join(",")
+      }
+    end
+  end
+
+  def needed?
+    !EXISTING_ASSETS.include?(name)
+  end
+end
+
+def generate_matrix
+  assets = %W[ linux darwin ].
+    flat_map { |os| GHCs.map { |ghc| Asset.new(ghc, os) } }.
+    filter(&:needed?)
+
+  {
+    asset: assets.map(&:name),
+    include: assets.map(&:include)
+  }
+end
+
+puts JSON.dump(generate_matrix)
