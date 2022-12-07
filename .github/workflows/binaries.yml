@@ -17,7 +17,7 @@ jobs:
         version:
           - 2.4.0 # GHC-9.2
           - 2.3.1 # GHC-9.0
-          - 2.2.0 # GHC-8.8
+          - 2.2.0 # GHC-8.8/10
 
         include:
           - os: ubuntu
@@ -32,7 +32,7 @@ jobs:
           - version: 2.3.1
             resolver: lts-19.33
           - version: 2.2.0
-            resolver: lts-16.31
+            resolver: lts-18.28
 
       fail-fast: false
 
