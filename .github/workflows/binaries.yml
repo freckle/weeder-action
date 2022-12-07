@@ -10,7 +10,9 @@ jobs:
         os:
           - ubuntu
           - macOS
-          - windows
+
+          # The prep steps needs rewriting
+          # - windows
 
         version:
           - 2.4.0 # GHC-9.2
@@ -22,8 +24,8 @@ jobs:
             suffix: linux-x64.tar.gz
           - os: macOS
             suffix: darwin-x64.tar.gz
-          - os: windows
-            suffix: win32-x64.zip
+          # - os: windows
+          #   suffix: win32-x64.zip
 
           - version: 2.4.0
             resolver: lts-20.3
