@@ -43,13 +43,14 @@ jobs:
           echo 'archive=weeder-${{ matrix.version }}-${{ matrix.suffix }}' >>"$GITHUB_OUTPUT"
 
       - uses: actions/cache@v3
-        path: |
-          ~/.stack
-          ./.stack-work
-        key: ${{ runner.os }}-stack-${{ matrix.resolver }}-${{ matrix.version }}
-        restore-keys: |
-          ${{ runner.os }}-stack-${{ matrix.resolver }}-
-          ${{ runner.os }}-stack-
+        with:
+          path: |
+            ~/.stack
+            ./.stack-work
+          key: ${{ runner.os }}-stack-${{ matrix.resolver }}-${{ matrix.version }}
+          restore-keys: |
+            ${{ runner.os }}-stack-${{ matrix.resolver }}-
+            ${{ runner.os }}-stack-
 
       - run: stack install weeder-${{ matrix.version }} --local-bin-path .
 
