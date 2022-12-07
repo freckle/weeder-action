@@ -9,28 +9,28 @@ jobs:
       matrix:
         os:
           - ubuntu
-          # - macOS
-          # - windows
+          - macOS
+          - windows
 
         version:
           - 2.4.0 # GHC-9.2
-          # - 2.3.1 # GHC-9.0
-          # - 2.2.0 # GHC-8.8
+          - 2.3.1 # GHC-9.0
+          - 2.2.0 # GHC-8.8
 
         include:
           - os: ubuntu
             suffix: linux-x64.tar.gz
-          # - os: macOS
-          #   suffix: darwin-x64.tar.gz
-          # - os: windows
-          #   suffix: win32-x64.zip
+          - os: macOS
+            suffix: darwin-x64.tar.gz
+          - os: windows
+            suffix: win32-x64.zip
 
           - version: 2.4.0
             resolver: lts-20.3
-          # - version: 2.3.1
-          #   resolver: lts-19.33
-          # - version: 2.2.0
-          #   resolver: lts-16.31
+          - version: 2.3.1
+            resolver: lts-19.33
+          - version: 2.2.0
+            resolver: lts-16.31
 
       fail-fast: false
 
