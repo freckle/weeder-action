@@ -1,0 +1,47 @@
+name: Binaries
+
+# TODO
+on:
+  pull_request:
+
+jobs:
+  binaries:
+    strategy:
+      matrix:
+        os:
+          - ubuntu
+          # - macOS
+          # - windows
+
+        version:
+          - 2.4.0 # GHC-9.2
+          # - 2.3.1 # GHC-9.0
+          # - 2.2.0 # GHC-8.8
+
+        include:
+          - os: ubuntu
+            suffix: linux-x64.tar.gz
+          - os: macOS
+            suffix: darwin-x64.tar.gz
+          - os: windows
+            suffix: win32-x64.zip
+
+      fail-fast: false
+
+    runs-on: ${{ matrix.os }}-latest
+    steps:
+      - id: prep
+        run: echo 'archive=weeder-${{ matrix.version }}-${{ matrix.suffix }}' >>"$GITHUB_OUTPUT"
+
+      - uses: freckle/stack-cache-action@v2
+      - run: stack install weeder-${{ matrix.version }} --local-bin-path .
+
+      - if: ${{ matrix.os != 'windows' }}
+        run: tar -cvzf '${{ steps.prep.outputs.archive }}' ./weeder
+
+      - if: ${{ matrix.os == 'windows' }}
+        run: zip '${{ steps.prep.outputs.archive }}' ./weeder
+
+      - run: gh --repo '${{ github.repo }}' release upload Binaries '${{ steps.prep.outputs.archive }}' --clobber
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
