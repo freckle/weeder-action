@@ -30,7 +30,7 @@ runs:
       with:
         name: weeder
         version: ${{ inputs.weeder-version }}
-        url: "https://github.com/freckle/weeder-action/releases/download/Binaries/{name}-{version}-{arch}-{os}.{ext}"
+        url: "https://github.com/freckle/weeder-action/releases/download/Binaries/{name}-{version}-{os}-{arch}.{ext}"
 
     - id: weeder
       name: Run weeder
