@@ -11,11 +11,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - uses: freckle/stack-cache-action@main
+      - uses: freckle/stack-cache-action@v2
         with:
           working-directory: example
 
-      - uses: freckle/stack-action@main
+      - uses: freckle/stack-action@v3
         with:
           working-directory: example
           hlint: false
@@ -25,7 +25,7 @@ jobs:
         uses: ./
         with:
           working-directory: example
-          weeder-version: 2.2.0
+          weeder-version: 2.4.0
           fail: false
 
       - run: |
