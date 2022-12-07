@@ -18,8 +18,6 @@ jobs:
       - uses: freckle/stack-action@v3
         with:
           working-directory: example
-          hlint: false
-          weeder: false
 
       - id: weeder
         uses: ./
