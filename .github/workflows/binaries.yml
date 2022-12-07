@@ -26,6 +26,13 @@ jobs:
           # - os: windows
           #   suffix: win32-x64.zip
 
+          - version: 2.4.0
+            lts: 20.2
+          # - version: 2.3.1
+          #   lts: 19.33
+          # - version: 2.2.0
+          #   lts: ??
+
       fail-fast: false
 
     runs-on: ${{ matrix.os }}-latest
@@ -33,6 +40,7 @@ jobs:
       - id: prep
         run: echo 'archive=weeder-${{ matrix.version }}-${{ matrix.suffix }}' >>"$GITHUB_OUTPUT"
 
+      - run: echo 'resolver=lts-${{ matrix.lts }}' >> stack.yaml
       - uses: freckle/stack-cache-action@v2
       - run: stack install weeder-${{ matrix.version }} --local-bin-path .
 
