@@ -21,10 +21,10 @@ jobs:
         include:
           - os: ubuntu
             suffix: linux-x64.tar.gz
-          - os: macOS
-            suffix: darwin-x64.tar.gz
-          - os: windows
-            suffix: win32-x64.zip
+          # - os: macOS
+          #   suffix: darwin-x64.tar.gz
+          # - os: windows
+          #   suffix: win32-x64.zip
 
       fail-fast: false
 
