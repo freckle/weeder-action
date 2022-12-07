@@ -26,7 +26,7 @@ runs:
   using: composite
   steps:
     - name: Install weeder
-      uses: pbrisbin/setup-tool-action@main # TODO: release if works
+      uses: pbrisbin/setup-tool-action@v1.0.0
       with:
         name: weeder
         version: ${{ inputs.weeder-version }}
