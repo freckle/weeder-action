@@ -39,7 +39,7 @@ jobs:
     steps:
       - id: prep
         run: |
-          echo 'resolver: ${{ matrix.resolver }}' >> stack.yaml
+          printf 'resolver: ${{ matrix.resolver }}\npackages: []\n' >> stack.yaml
           echo 'archive=weeder-${{ matrix.version }}-${{ matrix.suffix }}' >>"$GITHUB_OUTPUT"
 
       - uses: actions/cache@v3
