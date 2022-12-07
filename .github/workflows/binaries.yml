@@ -1,0 +1,91 @@
+name: Binaries
+
+on:
+  pull_request:
+
+jobs:
+  binaries:
+    strategy:
+      matrix:
+        os:
+          - ubuntu
+          - macOS
+          # - windows
+
+        ghc:
+          - "9.2"
+          - "9.0"
+          - "8.10"
+
+        include:
+          - os: ubuntu
+            suffix: linux-x64.tar.gz
+            zip: "tar -cvzf"
+          - os: macOS
+            suffix: darwin-x64.tar.gz
+            zip: "tar -cvzf"
+          # - os: windows
+          #   suffix: win32-x64.zip
+          #   zip: zip
+
+          - ghc: "9.2"
+            version: 2.4.0
+            resolver: lts-20.3
+            extra-deps: ""
+          - ghc: "9.0"
+            version: 2.3.1
+            resolver: lts-19.33
+            extra-deps: ""
+          - ghc: "8.10"
+            version: 2.2.0
+            resolver: lts-18.28
+            extra-deps: >-
+              dhall-1.40.2,
+              generic-lens-2.2.1.0,
+              generic-lens-core-2.2.1.0
+
+      fail-fast: false
+
+    runs-on: ${{ matrix.os }}-latest
+    steps:
+      - id: prep
+        run: |
+          cat >stack.yaml <<'EOM'
+          resolver: ${{ matrix.resolver }}
+          packages: []
+          extra-deps: [${{ matrix.extra-deps }}]
+          EOM
+
+          archive=weeder-${{ matrix.version }}-${{ matrix.suffix }}
+          release=Binaries
+
+          cat >>"$GITHUB_OUTPUT" <<EOM
+          archive=$archive
+          release=$release
+          exists=$(gh --repo '${{ github.repository }}' release view "$release" \
+            --json assets \
+            --jq ".assets[] | select(.name == \"$archive\") | \"true\"")
+          EOM
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - if: ${{ steps.prep.outputs.exists != 'true' }}
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.stack
+            ./.stack-work
+          key: ${{ runner.os }}-stack-${{ matrix.resolver }}-${{ matrix.version }}
+          restore-keys: |
+            ${{ runner.os }}-stack-${{ matrix.resolver }}-
+            ${{ runner.os }}-stack-
+
+      - if: ${{ steps.prep.outputs.exists != 'true' }}
+        run: |
+          stack install weeder-${{ matrix.version }} --local-bin-path .
+          ${{ matrix.zip }} '${{ steps.prep.outputs.archive }}' ./weeder
+          gh --repo '${{ github.repository }}' release upload \
+            '${{ steps.prep.outputs.release }}' \
+            '${{ steps.prep.outputs.archive }}'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

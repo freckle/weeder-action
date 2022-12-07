@@ -5,14 +5,10 @@ inputs:
     description: Change to this directory before operating
     required: true
     default: .
-  stack-yaml:
-    description: Path to stack.yaml, relative to working-directory
-    required: true
-    default: stack.yaml
   weeder-version:
-    description: Version of weeder to install (default latest)
+    description: Version of weeder to install (default 2.4.0)
     required: true
-    default: ""
+    default: "2.4.0"
   weeder-arguments:
     description: |
       Arguments to pass when invoking weeder (default --require-hs-files)
@@ -22,6 +18,17 @@ inputs:
     description: Fail the build if unused functions found? (default true)
     required: true
     default: true
+  install-weeder:
+    description: Install weeder ourselves? (default true)
+    required: true
+    default: true
+  execute-weeder:
+    description: |
+      Command to execute weeder. This may be necessary if you are installing
+      your own weeder via `stack --copy-compiler-tool` and need to invoke it
+      with `stack exec`.
+    required: true
+    default: weeder
 outputs:
   log:
     description: Path to file containing the output from weeder
@@ -29,18 +36,13 @@ outputs:
 runs:
   using: composite
   steps:
-    - name: Install weeder
-      shell: bash
-      run: |
-        if [[ -n "${{ inputs.weeder-version }}" ]]; then
-          package=weeder-${{ inputs.weeder-version }}
-        else
-          package=weeder
-        fi
-
-        cd '${{ inputs.working-directory }}'
-        stack --stack-yaml '${{ inputs.stack-yaml }}' install \
-          --copy-compiler-tool "$package"
+    - if: ${{ inputs.install-weeder }}
+      name: Install weeder
+      uses: pbrisbin/setup-tool-action@v1.0.0
+      with:
+        name: weeder
+        version: ${{ inputs.weeder-version }}
+        url: "https://github.com/freckle/weeder-action/releases/download/Binaries/{name}-{version}-{os}-{arch}.{ext}"
 
     - id: weeder
       name: Run weeder
@@ -54,8 +56,7 @@ runs:
 
         cd '${{ inputs.working-directory }}'
         prefix=$(echo '${{ inputs.working-directory }}' | sed 's|/$||')/
-        stack --stack-yaml '${{ inputs.stack-yaml }}' exec -- \
-          weeder ${{ inputs.weeder-arguments }} |
+        ${{ inputs.execute-weeder }} ${{ inputs.weeder-arguments }} |
           sed "s|^|$prefix|; "'s/$/ is not used by any defined root/' |
           tee "$tmp" || true
 
