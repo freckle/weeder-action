@@ -26,8 +26,8 @@ steps:
 
 ## Inputs
 
-- **ghc-version**: You must specify the `ghc-version` your project
-  is compiled with (to ensure `.hie` compatibility).
+- **ghc-version**: You must specify the `ghc-version` your project is compiled
+  with (to ensure `.hie` compatibility).
 
   This Action maintains and installs pre-compiled `weeder` binaries for Mac and
   Linux across all GHC versions that `weeder` compiles on (8.8.1 to 9.2.5 at
