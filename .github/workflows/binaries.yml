@@ -29,7 +29,8 @@ jobs:
 
     runs-on: ${{ matrix.runner }}
     steps:
-      - uses: actions/cache@v3
+      - if: ${{ matrix.asset != 'none' }}
+        uses: actions/cache@v3
         with:
           path: |
             ~/.stack
@@ -38,7 +39,8 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-stack-
 
-      - run: |
+      - if: ${{ matrix.asset != 'none' }}
+        run: |
           cat >stack.yaml <<'EOM'
           resolver: ${{ matrix.resolver }}
           packages: []

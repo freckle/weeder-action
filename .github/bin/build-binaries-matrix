@@ -103,10 +103,20 @@ def generate_matrix
     flat_map { |os| GHCs.map { |ghc| Asset.new(ghc, os) } }.
     filter(&:needed?)
 
-  {
-    asset: assets.map(&:name),
-    include: assets.map(&:include)
-  }
+  if assets.empty?
+    {
+      asset: ["none"],
+      include: [{
+        asset: "none",
+        runner: "ubuntu-latest"
+      }]
+    }
+  else
+    {
+      asset: assets.map(&:name),
+      include: assets.map(&:include)
+    }
+  end
 end
 
 puts JSON.dump(generate_matrix)
