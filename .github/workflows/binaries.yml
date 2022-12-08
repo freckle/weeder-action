@@ -38,7 +38,10 @@ jobs:
             extra-deps: ""
           - version: 2.2.0
             resolver: lts-18.28
-            extra-deps: "dhall-1.40.2, generic-lens-2.2.1.0"
+            extra-deps: >-
+              dhall-1.40.2,
+              generic-lens-2.2.1.0,
+              generic-lens-core-2.2.1.0
 
       fail-fast: false
 
@@ -53,12 +56,13 @@ jobs:
           EOM
 
           archive=weeder-${{ matrix.version }}-${{ matrix.suffix }}
-          echo "archive=$archive" >>"$GITHUB_OUTPUT"
 
+          cat >>"$GITHUB_OUTPUT" <<EOM
+          archive=$archive
           exists=$(gh --repo '${{ github.repository }}' release view Binaries \
             --json assets \
             --jq ".assets[] | select(.name == \"$archive\") | \"true\"")
-          echo "exists=$exists" >>"$GITHUB_OUTPUT"
+          EOM
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -74,12 +78,9 @@ jobs:
             ${{ runner.os }}-stack-
 
       - if: ${{ steps.prep.outputs.exists != 'true' }}
-        run: stack install weeder-${{ matrix.version }} --local-bin-path .
-
-      - if: ${{ steps.prep.outputs.exists != 'true' }}
-        run: ${{ matrix.zip }} '${{ steps.prep.outputs.archive }}' ./weeder
-
-      - if: ${{ steps.prep.outputs.exists != 'true' }}
-        run: gh --repo '${{ github.repository }}' release upload Binaries '${{ steps.prep.outputs.archive }}'
+        run: |
+          stack install weeder-${{ matrix.version }} --local-bin-path .
+          ${{ matrix.zip }} '${{ steps.prep.outputs.archive }}' ./weeder
+          gh --repo '${{ github.repository }}' release upload Binaries '${{ steps.prep.outputs.archive }}'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
