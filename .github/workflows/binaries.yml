@@ -32,7 +32,7 @@ jobs:
             version: 2.4.0
             resolver: lts-20.3
             extra-deps: ""
-          - ghc: "8.0"
+          - ghc: "9.0"
             version: 2.3.1
             resolver: lts-19.33
             extra-deps: ""
