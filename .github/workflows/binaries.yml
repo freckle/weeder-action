@@ -10,14 +10,12 @@ jobs:
         os:
           - ubuntu
           - macOS
-
-          # The prep steps needs rewriting
           # - windows
 
-        version:
-          - 2.4.0 # GHC-9.2
-          - 2.3.1 # GHC-9.0
-          - 2.2.0 # GHC-8.8/10
+        ghc:
+          - "9.2"
+          - "9.0"
+          - "8.10"
 
         include:
           - os: ubuntu
@@ -30,13 +28,16 @@ jobs:
           #   suffix: win32-x64.zip
           # zip: "zip"
 
-          - version: 2.4.0
+          - ghc: "9.2"
+            version: 2.4.0
             resolver: lts-20.3
             extra-deps: ""
-          - version: 2.3.1
+          - ghc: "8.0"
+            version: 2.3.1
             resolver: lts-19.33
             extra-deps: ""
-          - version: 2.2.0
+          - ghc: "8.10"
+            version: 2.2.0
             resolver: lts-18.28
             extra-deps: >-
               dhall-1.40.2,
