@@ -63,9 +63,9 @@ steps:
 - **execute-weeder**: Command to execute `weeder`
 
   You may need to set this if installing your own `weeder` and executing
-  `weeder` doesn't work. For example, if you install it with `stack
-  --copy-compiler-tool`, you will need to set this to (something like) `stack
-  exec weeder --`.
+  `weeder` doesn't work. For example, if you install it with
+  `stack --copy-compiler-tool`, you will need to set this to (something like)
+  `stack exec weeder --`.
 
 ## Outputs
 
