@@ -35,7 +35,7 @@ steps:
   project is compiled with (to ensure `.hie` compatibility).
 
   | GHC  | `weeder-version` |         |
-  | ---  | ---              | ---     |
+  | ---- | ---------------- | ------- |
   | 9.2  | 2.4.0            | default |
   | 9.0  | 2.3.1            |         |
   | 8.10 | 2.2.0            |         |
