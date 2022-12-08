@@ -56,10 +56,12 @@ jobs:
           EOM
 
           archive=weeder-${{ matrix.version }}-${{ matrix.suffix }}
+          release=Binaries
 
           cat >>"$GITHUB_OUTPUT" <<EOM
           archive=$archive
-          exists=$(gh --repo '${{ github.repository }}' release view Binaries \
+          release=$release
+          exists=$(gh --repo '${{ github.repository }}' release view "$release" \
             --json assets \
             --jq ".assets[] | select(.name == \"$archive\") | \"true\"")
           EOM
@@ -81,6 +83,8 @@ jobs:
         run: |
           stack install weeder-${{ matrix.version }} --local-bin-path .
           ${{ matrix.zip }} '${{ steps.prep.outputs.archive }}' ./weeder
-          gh --repo '${{ github.repository }}' release upload Binaries '${{ steps.prep.outputs.archive }}'
+          gh --repo '${{ github.repository }}' release upload \
+            '${{ steps.prep.outputs.release }}' \
+            '${{ steps.prep.outputs.archive }}'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
