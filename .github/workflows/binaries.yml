@@ -17,22 +17,28 @@ jobs:
         version:
           - 2.4.0 # GHC-9.2
           - 2.3.1 # GHC-9.0
-          # - 2.2.0 # GHC-8.8/10
+          - 2.2.0 # GHC-8.8/10
 
         include:
           - os: ubuntu
             suffix: linux-x64.tar.gz
+            zip: "tar -cvzf"
           - os: macOS
             suffix: darwin-x64.tar.gz
+            zip: "tar -cvzf"
           # - os: windows
           #   suffix: win32-x64.zip
+          # zip: "zip"
 
           - version: 2.4.0
             resolver: lts-20.3
+            extra-deps: ""
           - version: 2.3.1
             resolver: lts-19.33
-          # - version: 2.2.0
-          #   resolver: lts-18.28
+            extra-deps: ""
+          - version: 2.2.0
+            resolver: lts-18.28
+            extra-deps: "dhall-1.40.2, generic-lens-2.2.1.0"
 
       fail-fast: false
 
@@ -40,13 +46,18 @@ jobs:
     steps:
       - id: prep
         run: |
+          cat >stack.yaml <<'EOM'
+          resolver: ${{ matrix.resolver }}
+          packages: []
+          extra-deps: [${{ matrix.extra-deps }}]
+          EOM
+
           archive=weeder-${{ matrix.version }}-${{ matrix.suffix }}
+          echo "archive=$archive" >>"$GITHUB_OUTPUT"
+
           exists=$(gh --repo '${{ github.repository }}' release view Binaries \
             --json assets \
             --jq ".assets[] | select(.name == \"$archive\") | \"true\"")
-
-          printf 'resolver: ${{ matrix.resolver }}\npackages: []\n' >> stack.yaml
-          echo "archive=$archive" >>"$GITHUB_OUTPUT"
           echo "exists=$exists" >>"$GITHUB_OUTPUT"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -65,11 +76,8 @@ jobs:
       - if: ${{ steps.prep.outputs.exists != 'true' }}
         run: stack install weeder-${{ matrix.version }} --local-bin-path .
 
-      - if: ${{ steps.prep.outputs.exists != 'true' && matrix.os != 'windows' }}
-        run: tar -cvzf '${{ steps.prep.outputs.archive }}' ./weeder
-
-      - if: ${{ steps.prep.outputs.exists != 'true' && matrix.os == 'windows' }}
-        run: zip '${{ steps.prep.outputs.archive }}' ./weeder
+      - if: ${{ steps.prep.outputs.exists != 'true' }}
+        run: ${{ matrix.zip }} '${{ steps.prep.outputs.archive }}' ./weeder
 
       - if: ${{ steps.prep.outputs.exists != 'true' }}
         run: gh --repo '${{ github.repository }}' release upload Binaries '${{ steps.prep.outputs.archive }}'
