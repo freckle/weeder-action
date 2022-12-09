@@ -46,7 +46,7 @@ Asset = Struct.new(:ghc, :os) do
     when "darwin"
       { runner: "macOS-latest", ext: "tar.gz", zip: "tar -czf" }
     when "win32"
-      { runner: "windows-latest", ext: "7z", zip: 'C:\Program Files\7-Zip\7z.exe' }
+      { runner: "windows-latest", ext: "7z", zip: '"C:\Program Files\7-Zip\7z.exe"' }
     else
       raise "Unexpected OS: #{os}, must be linux|darwin|win32"
     end
