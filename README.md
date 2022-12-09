@@ -14,12 +14,6 @@ See the [Weeder README][weeder] for project requirements.
 You will need to run this step in the same Job as you compile your project, or
 make the `.hie` files available some other way.
 
-This Action only supports [Stack]-based projects at this time: it uses
-`stack install` to install `weeder` and `stack exec` to run it. PRs are very
-welcome to support alternatives such as Cabal or Nix.
-
-[stack]: https://docs.haskellstack.org/en/stable/README/
-
 ## Usage
 
 ```yaml
@@ -32,7 +26,28 @@ steps:
 
 ## Inputs
 
-See [`action.yml`](./action.yml) for a complete and up to date list.
+- **ghc-version**: You must specify the `ghc-version` your project is compiled
+  with (to ensure `.hie` compatibility).
+
+  This Action maintains and installs pre-compiled `weeder` binaries for Mac and
+  Linux across all GHC versions that `weeder` compiles on (8.8.1 to 9.2.5 at
+  time of this writing). Please file an Issue if you're using a GHC that's not
+  supported, but for which a released version of `weeder` does exist.
+
+- **weeder-arguments**: Arguments to pass when invoking `weeder`
+
+  Default is `--require-hs-files`, which ensures that cached builds that have
+  since removed files (but still have their `.hie` files present) don't generate
+  false positives.
+
+- **working-directory**: Change to this directory before running.
+
+  This can be necessary if in a mono-repository.
+
+- **fail**: Fail if we find unused functions?
+
+  Default is true. This is useful if you want to not fail the step, but do
+  something else with the weeder output yourself.
 
 ## Outputs
 
