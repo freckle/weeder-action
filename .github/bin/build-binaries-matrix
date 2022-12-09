@@ -99,7 +99,7 @@ Asset = Struct.new(:ghc, :os) do
 end
 
 def generate_matrix
-  assets = %W[ linux darwin ].
+  assets = %W[ linux darwin win32 ].
     flat_map { |os| GHCs.map { |ghc| Asset.new(ghc, os) } }.
     filter(&:needed?)
 

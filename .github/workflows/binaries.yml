@@ -40,6 +40,7 @@ jobs:
             ${{ runner.os }}-stack-
 
       - if: ${{ matrix.asset != 'none' }}
+        shell: bash
         run: |
           cat >stack.yaml <<'EOM'
           resolver: ${{ matrix.resolver }}
