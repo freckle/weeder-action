@@ -20,8 +20,11 @@ make the `.hie` files available some other way.
 steps:
   - uses: actions/checkout@v3
   - uses: freckle/stack-cache-action@v2
-  - uses: freckle/stack-action@v3
+  - id: stack
+    uses: freckle/stack-action@v3
   - uses: freckle/weeder-action@v2
+    with:
+      ghc-version: ${{ steps.stack.outputs.compiler-version }}
 ```
 
 ## Inputs
