@@ -21,7 +21,7 @@ steps:
   - uses: actions/checkout@v2
   - uses: freckle/stack-cache-action@v1
   - uses: freckle/stack-action@v3
-  - uses: freckle/weeder-action@v1
+  - uses: freckle/weeder-action@v2
 ```
 
 ## Inputs
