@@ -42,11 +42,11 @@ Asset = Struct.new(:ghc, :os) do
   def os_attributes
     case os
     when "linux"
-      { runner: "ubuntu-latest", ext: "tar.gz", zip: "tar -czf" }
+      { runner: "ubuntu-latest", exe: "./weeder", ext: "tar.gz", zip: "tar -czf" }
     when "darwin"
-      { runner: "macOS-latest", ext: "tar.gz", zip: "tar -czf" }
+      { runner: "macOS-latest", exe: "./weeder", ext: "tar.gz", zip: "tar -czf" }
     when "win32"
-      { runner: "windows-latest", ext: "zip", zip: '"C:\Program Files\7-Zip\7z.exe" a -tzip' }
+      { runner: "windows-latest", exe: "./weeder.exe", ext: "zip", zip: '"C:\Program Files\7-Zip\7z.exe" a -tzip' }
     else
       raise "Unexpected OS: #{os}, must be linux|darwin|win32"
     end

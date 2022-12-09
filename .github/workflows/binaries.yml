@@ -50,7 +50,7 @@ jobs:
 
           stack install weeder-${{ matrix.version }} --local-bin-path .
 
-          ${{ matrix.zip }} '${{ matrix.asset }}' ./weeder
+          ${{ matrix.zip }} '${{ matrix.asset }}' ${{ matrix.exe }}
           gh --repo '${{ github.repository }}' release upload '${{ matrix.release }}' '${{ matrix.asset }}'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
