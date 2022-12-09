@@ -18,8 +18,8 @@ make the `.hie` files available some other way.
 
 ```yaml
 steps:
-  - uses: actions/checkout@v2
-  - uses: freckle/stack-cache-action@v1
+  - uses: actions/checkout@v3
+  - uses: freckle/stack-cache-action@v2
   - uses: freckle/stack-action@v3
   - uses: freckle/weeder-action@v2
 ```
