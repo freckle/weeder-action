@@ -3,10 +3,15 @@ require "json"
 
 RELEASE_NAME = "Binaries"
 
-EXISTING_ASSETS = JSON.parse(`
-  gh --repo freckle/weeder-action release view #{RELEASE_NAME} --json assets |
-    jq '.assets | map(.name)'
-`)
+EXISTING_ASSETS =
+  if ENV["WEEDER_BINARIES_OVERWRITE"] == "1"
+    []
+  else
+    JSON.parse(`
+      gh --repo freckle/weeder-action release view #{RELEASE_NAME} --json assets |
+        jq '.assets | map(.name)'
+    `)
+  end
 
 GHCs = %W[
   9.2.7
