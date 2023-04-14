@@ -16,7 +16,7 @@ oses:
     zip: '"C:\Program Files\7-Zip\7z.exe" a -tzip'
 
 ghcs:
-  # No LTS
+  # Awaiting LTS availability
   # ghc-9.6.1:
   # ghc-9.4.4:
   # ghc-9.4.3:
@@ -36,20 +36,10 @@ ghcs:
     version: 2.4.0
     resolver: lts-20.0
     extra-deps: ""
-
-  # No LTS
-  # ghc-9.2.4:
-  # ghc-9.2.3:
-  # ghc-9.2.2:
-
   ghc-9.0.2:
     resolver: lts-19.0
     version: 2.3.1
     extra-deps: ""
-
-  # No LTS
-  # ghc-9.0.1:
-
   ghc-8.10.7:
     version: 2.2.0
     resolver: lts-18.9
@@ -62,10 +52,6 @@ ghcs:
     extra-deps: >-
       base16-bytestring-1.0.0.0, dhall-1.40.2, generic-lens-2.2.1.0,
       generic-lens-core-2.2.1.0
-
-  # No LTS
-  # ghc-8.10.5:
-
   ghc-8.10.4:
     version: 2.2.0
     resolver: lts-17.3
@@ -78,11 +64,6 @@ ghcs:
     extra-deps: >-
       base16-bytestring-1.0.0.0, dhall-1.40.2, generic-lens-2.2.1.0,
       generic-lens-core-2.2.1.0
-
-  # No LTS
-  # ghc-8.10.2:
-  # ghc-8.10.1:
-
   ghc-8.8.4:
     version: 2.2.0
     resolver: lts-16.12
@@ -104,9 +85,6 @@ ghcs:
       dhall-1.40.2, generic-lens-2.2.1.0, generic-lens-core-2.2.1.0,
       base16-bytestring-1.0.2.0, prettyprinter-1.7.1,
       prettyprinter-ansi-terminal-1.1.2, repline-0.4.2.0, haskeline-0.8.2
-
-  # No LTS
-  # ghc-8.8.1:
 
 excluded:
   - "ghc-8.10.6-win32" # tons of "this GHC boot package has been pruned" errors
