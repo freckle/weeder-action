@@ -48,6 +48,24 @@ jobs:
           extra-deps: [${{ matrix.extra-deps }}]
           EOM
 
+          stack setup
+
+          actual_ghc="$(stack query stack query compiler actual)"
+          wanted_ghc=ghc-${{ matrix.ghc }}
+
+          if [[ "$actual_ghc" != "$wanted_ghc" ]]; then
+            cat <<EOM
+          The configured GHC does not match the binary we're intending to build:
+
+            Actual: $actual_ghc
+            Wanted: $wanted_ghc
+
+          Update the resolver used for this build in build-binaries-matrix to
+          one that matches the desired GHC.
+          EOM
+            exit 1
+          fi
+
           stack install weeder-${{ matrix.version }} --local-bin-path .
 
           ${{ matrix.zip }} '${{ matrix.asset }}' ${{ matrix.exe }}
