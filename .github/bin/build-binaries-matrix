@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 require "json"
+require "yaml"
 
 RELEASE_NAME = "Binaries"
 
@@ -13,103 +14,15 @@ EXISTING_ASSETS =
     `)
   end
 
-GHCs = %W[
-  9.2.7
-  9.2.6
-  9.2.5
-  9.2.4
-  9.2.3
-  9.2.2
-  9.0.2
-  9.0.1
-  8.10.7
-  8.10.6
-  8.10.5
-  8.10.4
-  8.10.3
-  8.10.2
-  8.10.1
-  8.8.4
-  8.8.3
-  8.8.2
-  8.8.1
-]
-
-Asset = Struct.new(:ghc, :os) do
+Asset = Struct.new(:os, :os_attributes, :ghc, :ghc_attributes) do
   def name
-    "weeder-#{ghc}-#{os}-x64.#{os_attributes.fetch(:ext)}"
+    "weeder-#{ghc}-#{os}-x64.#{os_attributes.fetch("ext")}"
   end
 
   def include
     { asset: name, ghc: ghc, release: RELEASE_NAME }.
       merge(os_attributes).
-      merge(version_attributes)
-  end
-
-  def os_attributes
-    case os
-    when "linux"
-      { runner: "ubuntu-latest", exe: "./weeder", ext: "tar.gz", zip: "tar -czf" }
-    when "darwin"
-      { runner: "macOS-latest", exe: "./weeder", ext: "tar.gz", zip: "tar -czf" }
-    when "win32"
-      { runner: "windows-latest", exe: "./weeder.exe", ext: "zip", zip: '"C:\Program Files\7-Zip\7z.exe" a -tzip' }
-    else
-      raise "Unexpected OS: #{os}, must be linux|darwin|win32"
-    end
-  end
-
-  def version_attributes
-    case ghc
-    when /9\.2\.7/
-      {
-        version: "2.4.0",
-        resolver: "lts-20.13",
-        "extra-deps": ""
-      }
-    when /9\.2\.6/
-      {
-        version: "2.4.0",
-        resolver: "lts-20.12",
-        "extra-deps": ""
-      }
-    when /9\.2\..*/
-      {
-        version: "2.4.0",
-        resolver: "lts-20.3",
-        "extra-deps": ""
-      }
-    when /9\.0\..*/
-      {
-        version: "2.3.1",
-        resolver: "lts-19.33",
-        "extra-deps": ""
-      }
-    when /8\.10\..*/
-      {
-        version: "2.2.0",
-        resolver: "lts-18.28",
-        "extra-deps": [
-            "dhall-1.40.2",
-            "generic-lens-2.2.1.0",
-            "generic-lens-core-2.2.1.0"
-        ].join(",")
-      }
-    when /8\.8\..*/
-      {
-        version: "2.2.0",
-        resolver: "lts-16.31",
-        "extra-deps": [
-            "dhall-1.40.2",
-            "generic-lens-2.2.1.0",
-            "generic-lens-core-2.2.1.0",
-            "base16-bytestring-1.0.2.0",
-            "prettyprinter-1.7.1",
-            "repline-0.4.2.0",
-            "haskeline-0.8.2"
-        ].join(",")
-      }
-    end
+      merge(ghc_attributes)
   end
 
   def needed?
@@ -118,9 +31,15 @@ Asset = Struct.new(:ghc, :os) do
 end
 
 def generate_matrix
-  assets = %W[ linux darwin win32 ].
-    flat_map { |os| GHCs.map { |ghc| Asset.new(ghc, os) } }.
-    filter(&:needed?)
+  binaries = YAML.load_file("binaries.yaml")
+  oses = binaries.fetch("oses")
+  ghcs = binaries.fetch("ghcs")
+
+  assets = oses.flat_map do |os, os_attributes|
+    ghcs.map do |ghc, ghc_attributes|
+      Asset.new(os, os_attributes, ghc.sub(/^ghc-/, ""), ghc_attributes)
+    end
+  end.filter(&:needed?)
 
   if assets.empty?
     {

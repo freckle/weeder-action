@@ -1,0 +1,103 @@
+oses:
+  linux:
+    runner: ubuntu-latest
+    exe: ./weeder
+    ext: tar.gz
+    zip: tar -czf
+  darwin:
+    runner: macOS-latest
+    exe: ./weeder
+    ext: tar.gz
+    zip: tar -czf
+  win32:
+    runner: windows-latest
+    exe: ./weeder.exe
+    ext: zip
+    zip: '"C:\Program Files\7-Zip\7z.exe" a -tzip'
+
+ghcs:
+  ghc-9.2.7:
+    version: 2.4.0
+    resolver: lts-20.13
+    extra-deps: ""
+  ghc-9.2.6:
+    version: 2.4.0
+    resolver: lts-20.12
+    extra-deps: ""
+  ghc-9.2.5:
+    version: 2.4.0
+    resolver: lts-20.0
+    extra-deps: ""
+  # ghc-9.2.4:
+  # ghc-9.2.3:
+  # ghc-9.2.2:
+  ghc-9.0.2:
+    resolver: lts-19.0
+    version: 2.3.1
+    extra-deps: ""
+  # ghc-9.0.1:
+  ghc-8.10.7:
+    version: 2.2.0
+    resolver: lts-18.9
+    extra-deps: >-
+      dhall-1.40.2,
+      generic-lens-2.2.1.0,
+      generic-lens-core-2.2.1.0
+  ghc-8.10.6:
+    version: 2.2.0
+    resolver: lts-18.7
+    extra-deps: >-
+      dhall-1.40.2,
+      generic-lens-2.2.1.0,
+      generic-lens-core-2.2.1.0
+  # ghc-8.10.5:
+  ghc-8.10.4:
+    version: 2.2.0
+    resolver: lts-17.3
+    extra-deps: >-
+      dhall-1.40.2,
+      generic-lens-2.2.1.0,
+      generic-lens-core-2.2.1.0
+  ghc-8.10.3:
+    version: 2.2.0
+    resolver: lts-17.0
+    extra-deps: >-
+      dhall-1.40.2,
+      generic-lens-2.2.1.0,
+      generic-lens-core-2.2.1.0
+  # ghc-8.10.2:
+  # ghc-8.10.1:
+  ghc-8.8.4:
+    version: 2.2.0
+    resolver: lts-16.12
+    extra-deps: >-
+      dhall-1.40.2,
+      generic-lens-2.2.1.0,
+      generic-lens-core-2.2.1.0,
+      base16-bytestring-1.0.2.0,
+      prettyprinter-1.7.1,
+      repline-0.4.2.0,
+      haskeline-0.8.2
+  ghc-8.8.3:
+    version: 2.2.0
+    resolver: lts-15.4
+    extra-deps: >-
+      dhall-1.40.2,
+      generic-lens-2.2.1.0,
+      generic-lens-core-2.2.1.0,
+      base16-bytestring-1.0.2.0,
+      prettyprinter-1.7.1,
+      repline-0.4.2.0,
+      haskeline-0.8.2
+  ghc-8.8.2:
+    version: 2.2.0
+    resolver: lts-15.0
+    extra-deps: >-
+      dhall-1.40.2,
+      generic-lens-2.2.1.0,
+      generic-lens-core-2.2.1.0,
+      base16-bytestring-1.0.2.0,
+      prettyprinter-1.7.1,
+      repline-0.4.2.0,
+      haskeline-0.8.2
+  # ghc-8.8.1:
