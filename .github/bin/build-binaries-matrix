@@ -14,7 +14,7 @@ EXISTING_ASSETS =
     `)
   end
 
-Asset = Struct.new(:os, :os_attributes, :ghc, :ghc_attributes) do
+Asset = Struct.new(:os, :os_attributes, :ghc, :ghc_attributes, :excludes) do
   def name
     "weeder-#{ghc}-#{os}-x64.#{os_attributes.fetch("ext")}"
   end
@@ -26,7 +26,11 @@ Asset = Struct.new(:os, :os_attributes, :ghc, :ghc_attributes) do
   end
 
   def needed?
-    !EXISTING_ASSETS.include?(name)
+    !excluded? && !EXISTING_ASSETS.include?(name)
+  end
+
+  def excluded?
+    excludes.include?("ghc-#{ghc}-#{os}")
   end
 end
 
@@ -34,10 +38,17 @@ def generate_matrix
   binaries = YAML.load_file("binaries.yaml")
   oses = binaries.fetch("oses")
   ghcs = binaries.fetch("ghcs")
+  excludes = binaries.fetch("excluded")
 
   assets = oses.flat_map do |os, os_attributes|
     ghcs.map do |ghc, ghc_attributes|
-      Asset.new(os, os_attributes, ghc.sub(/^ghc-/, ""), ghc_attributes)
+      Asset.new(
+        os,
+        os_attributes,
+        ghc.sub(/^ghc-/, ""),
+        ghc_attributes,
+        excludes
+      )
     end
   end.filter(&:needed?)
 

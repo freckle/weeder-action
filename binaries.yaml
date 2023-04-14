@@ -90,20 +90,28 @@ ghcs:
       dhall-1.40.2, generic-lens-2.2.1.0, generic-lens-core-2.2.1.0,
       base16-bytestring-1.0.2.0, prettyprinter-1.7.1,
       prettyprinter-ansi-terminal-1.1.2, repline-0.4.2.0, haskeline-0.8.2
+  ghc-8.8.3:
+    version: 2.2.0
+    resolver: lts-15.4
+    extra-deps: >-
+      dhall-1.40.2, generic-lens-2.2.1.0, generic-lens-core-2.2.1.0,
+      base16-bytestring-1.0.2.0, prettyprinter-1.7.1,
+      prettyprinter-ansi-terminal-1.1.2, repline-0.4.2.0, haskeline-0.8.2
+  ghc-8.8.2:
+    version: 2.2.0
+    resolver: lts-15.0
+    extra-deps: >-
+      dhall-1.40.2, generic-lens-2.2.1.0, generic-lens-core-2.2.1.0,
+      base16-bytestring-1.0.2.0, prettyprinter-1.7.1,
+      prettyprinter-ansi-terminal-1.1.2, repline-0.4.2.0, haskeline-0.8.2
 
-  # panic! "Prelude.chr: bad argument: 2583691267" on Linux
-  # ghc-8.8.3:
-  #   version: 2.2.0
-  #   resolver: lts-15.4
-  #   extra-deps: >-
-  #     dhall-1.40.2, generic-lens-2.2.1.0, generic-lens-core-2.2.1.0,
-  #     base16-bytestring-1.0.2.0, prettyprinter-1.7.1,
-  #     prettyprinter-ansi-terminal-1.1.2, repline-0.4.2.0, haskeline-0.8.2
-  # ghc-8.8.2:
-  #   version: 2.2.0
-  #   resolver: lts-15.0
-  #   extra-deps: >-
-  #     dhall-1.40.2, generic-lens-2.2.1.0, generic-lens-core-2.2.1.0,
-  #     base16-bytestring-1.0.2.0, prettyprinter-1.7.1,
-  #     prettyprinter-ansi-terminal-1.1.2, repline-0.4.2.0, haskeline-0.8.2
+  # No LTS
   # ghc-8.8.1:
+
+excluded:
+  - "ghc-8.10.6-win32" # tons of "this GHC boot package has been pruned" errors
+  - "ghc-8.8.3-linux" # panic! "Prelude.chr: bad argument: 2583691267"
+  - "ghc-8.8.3-darwin" # panic! "Prelude.chr: bad argument: 2583691267"
+  - "ghc-8.8.3-win32" # Access violation in generated code when writing 0x0
+  - "ghc-8.8.2-linux" # panic! "Prelude.chr: bad argument: 2583691267"
+  - "ghc-8.8.2-darwin" # panic! "Prelude.chr: bad argument: 2583691267"
