@@ -50,7 +50,7 @@ jobs:
 
           stack setup
 
-          actual_ghc="$(stack query stack query compiler actual)"
+          actual_ghc="$(stack query compiler actual)"
           wanted_ghc=ghc-${{ matrix.ghc }}
 
           if [[ "$actual_ghc" != "$wanted_ghc" ]]; then
