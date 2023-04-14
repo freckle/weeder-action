@@ -17,6 +17,7 @@ jobs:
           EOM
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WEEDER_BINARIES_OVERWRITE: 1
     outputs:
       matrix: ${{ steps.generate.outputs.matrix }}
 
@@ -72,4 +73,3 @@ jobs:
           # gh --repo '${{ github.repository }}' release upload '${{ matrix.release }}' '${{ matrix.asset }}'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          WEEDER_BINARIES_OVERWRITE: 1
