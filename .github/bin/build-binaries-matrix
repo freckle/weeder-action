@@ -56,6 +56,18 @@ Asset = Struct.new(:ghc, :os) do
 
   def version_attributes
     case ghc
+    when /9\.2\.7/
+      {
+        version: "2.4.0",
+        resolver: "lts-20.13",
+        "extra-deps": ""
+      }
+    when /9\.2\.6/
+      {
+        version: "2.4.0",
+        resolver: "lts-20.12",
+        "extra-deps": ""
+      }
     when /9\.2\..*/
       {
         version: "2.4.0",
