@@ -18,15 +18,14 @@ oses:
 ghcs:
   # Awaiting LTS availability
   # ghc-9.6.1:
-  # ghc-9.4.4:
-  # ghc-9.4.3:
-  # ghc-9.4.2:
-  # ghc-9.4.1:
-  # ghc-9.4.0:
 
+  ghc-9.4.5:
+    version: 2.6.0
+    resolver: lts-21.0
+    extra-deps: ""
   ghc-9.2.8:
     version: 2.4.0
-    resolver: lts-20.26
+    resolver: lts-20.25
     extra-deps: ""
   ghc-9.2.7:
     version: 2.4.0
