@@ -24,6 +24,10 @@ ghcs:
   # ghc-9.4.1:
   # ghc-9.4.0:
 
+  ghc-9.2.8:
+    version: 2.4.0
+    resolver: lts-20.26
+    extra-deps: ""
   ghc-9.2.7:
     version: 2.4.0
     resolver: lts-20.13
