@@ -19,6 +19,10 @@ ghcs:
   # Awaiting LTS availability
   # ghc-9.6.1:
 
+  ghc-9.4.7:
+    version: 2.7.0
+    resolver: lts-21.13
+    extra-deps: ""
   ghc-9.4.6:
     version: 2.7.0
     resolver: lts-21.8
