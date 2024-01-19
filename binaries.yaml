@@ -16,9 +16,11 @@ oses:
     zip: '"C:\Program Files\7-Zip\7z.exe" a -tzip'
 
 ghcs:
-  # Awaiting LTS availability
-  # ghc-9.6.1:
-
+  ghc-9.6.3:
+    version: 2.7.0
+    resolver: lts-22.6
+    extra-deps: >-
+      ansi-wl-pprint-0.6.9, optparse-applicative-0.17.1.0
   ghc-9.4.8:
     version: 2.7.0
     resolver: lts-21.25
