@@ -19,7 +19,8 @@ ghcs:
   ghc-9.6.3:
     version: 2.7.0
     resolver: lts-22.6
-    extra-deps: ""
+    extra-deps: >-
+      optparse-applicative-0.17.1.0
   ghc-9.4.8:
     version: 2.7.0
     resolver: lts-21.25
