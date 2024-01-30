@@ -25,7 +25,7 @@ runs:
   using: composite
   steps:
     - name: Install weeder
-      uses: pbrisbin/setup-tool-action@v1.0.0
+      uses: pbrisbin/setup-tool-action@v2
       with:
         name: weeder
         version: ${{ inputs.ghc-version }}
