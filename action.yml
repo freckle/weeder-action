@@ -42,7 +42,7 @@ runs:
 
     - id: weeder-check
       name: Compare weeder version with v2.7
-      uses: samcarswell/semver-compare-action@1.1
+      uses: pbrisbin/semver-compare-action@master
       with:
         left-semver: ${{ steps.weeder-version.outputs.result }}
         right-semver: 2.7.0
