@@ -9,20 +9,17 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
-      - uses: freckle/stack-cache-action@v2
-        with:
-          working-directory: example
-
-      - uses: freckle/stack-action@v3
+      - id: stack
+        uses: freckle/stack-action@v5
         with:
           working-directory: example
 
       - id: weeder
         uses: ./
         with:
-          ghc-version: 9.2.5
+          ghc-version: ${{ steps.stack.outputs.compiler-version }}
           working-directory: example
           fail: false
 
