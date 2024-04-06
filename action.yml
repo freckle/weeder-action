@@ -53,7 +53,8 @@ runs:
       env:
         # Value will be 1 if greater, 0 if equal
         CAN_TRUST_WEEDER_EXIT_CODE:
-          ${{ contains(fromJSON('[1, 0]'), steps.weeder-check.outputs.compare-value) }}
+          ${{ contains(fromJSON('[1, 0]'),
+          steps.weeder-check.outputs.compare-value) }}
       run: |
         echo "::add-matcher::${{ github.action_path }}/matcher.json"
         trap 'echo "::remove-matcher owner=freckle-weeder::"' EXIT
