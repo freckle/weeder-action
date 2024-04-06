@@ -63,11 +63,15 @@ runs:
 
         cd '${{ inputs.working-directory }}'
         prefix=$(echo '${{ inputs.working-directory }}' | sed 's|/$||')/
-        weeder ${{ inputs.weeder-arguments }} |
-          sed "s|^|$prefix|; "'s/$/ is not used by any defined root/' |
-          tee "$tmp" || true
 
-        ret=${PIPESTATUS[0]}
+        ret=0
+
+        if ! weeder ${{ inputs.weeder-arguments }} |
+          sed "s|^|$prefix|; "'s/$/ is not used by any defined root/' |
+          tee "$tmp"; then
+          ret=${PIPESTATUS[0]} # can't trust $? here, apparently
+        fi
+
         echo "Weeder exit code: $ret"
 
         if ((!ret)); then
