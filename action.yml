@@ -72,8 +72,12 @@ runs:
           ret=$?
         fi
 
-        # If we succeed, we can always succed regardless of version
-        ((ret)) || exit 0
+        echo "Weeder exit code: $ret"
+
+        if ((!ret)); then
+          echo "No unused functions found"
+          exit 0
+        fi
 
         # If we're configured to fail, we can always fail regardless of version
         if ${{ inputs.fail }}; then
