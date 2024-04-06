@@ -63,15 +63,11 @@ runs:
 
         cd '${{ inputs.working-directory }}'
         prefix=$(echo '${{ inputs.working-directory }}' | sed 's|/$||')/
-
-        ret=0
-
-        if ! weeder ${{ inputs.weeder-arguments }} |
+        weeder ${{ inputs.weeder-arguments }} |
           sed "s|^|$prefix|; "'s/$/ is not used by any defined root/' |
-          tee "$tmp"; then
-          ret=$?
-        fi
+          tee "$tmp" || true
 
+        ret=${PIPESTATUS[0]}
         echo "Weeder exit code: $ret"
 
         if ((!ret)); then
