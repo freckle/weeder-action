@@ -31,9 +31,27 @@ runs:
         version: ${{ inputs.ghc-version }}
         url: "https://github.com/freckle/weeder-action/releases/download/Binaries/{name}-{version}-{os}-{arch}.{ext}"
 
+    - id: weeder-version
+      name: Record weeder version
+      shell: bash
+      run: |
+        {
+          printf 'result='
+          weeder --version | sed '/^weeder version \(.*\)$/!d; s//\1/'
+        } >>"$GITHUB_OUTPUT"
+
+    - id: weeder-check
+      name: Compare weeder version with v2.7
+      uses: samcarswell/semver-compare-action@1.1
+      with:
+        left-semver: ${{ steps.weeder-version.outputs.result }}
+        right-semver: 2.7.0
+
     - id: weeder
       name: Run weeder
       shell: bash
+      env:
+        CAN_TRUST_WEEDER_EXIT_CODE: ${{ steps.weeder-check.outputs.compare-value == 1 }}
       run: |
         echo "::add-matcher::${{ github.action_path }}/matcher.json"
         trap 'echo "::remove-matcher owner=freckle-weeder::"' EXIT
@@ -58,5 +76,12 @@ runs:
         # If we're configured to fail, we can always fail regardless of version
         if ${{ inputs.fail }}; then
           echo "Configured to fail and unused functions found"
+          exit $ret
+        fi
+
+        # Otherwise, if we know we're v2.7+ and the exit code was not
+        # weeds-found (288), we should still fail.
+        if CAN_TRUST_WEEDER_EXIT_CODE && ((ret != 288)); then
+          echo "Weeder encountered some other error" >&2
           exit $ret
         fi
