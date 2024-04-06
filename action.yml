@@ -84,8 +84,8 @@ runs:
         fi
 
         # Otherwise, if we know we're v2.7+ and the exit code was not
-        # weeds-found (288), we should still fail.
-        if ((WEEDER_VERCMP >= 0)) && ((ret != 288)); then
+        # weeds-found (228), we should still fail.
+        if ((WEEDER_VERCMP >= 0)) && ((ret != 228)); then
           echo "Weeder encountered some other error" >&2
           exit $ret
         fi
