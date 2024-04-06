@@ -1,0 +1,15 @@
+name: example
+version: 0.0.0.0
+
+dependencies:
+  - base
+
+library:
+  source-dirs: src
+
+executables:
+  example:
+    source-dirs: app
+    main: Main.hs
+    dependencies:
+      - example
