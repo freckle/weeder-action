@@ -43,11 +43,20 @@ runs:
 
         cd '${{ inputs.working-directory }}'
         prefix=$(echo '${{ inputs.working-directory }}' | sed 's|/$||')/
-        weeder ${{ inputs.weeder-arguments }} |
-          sed "s|^|$prefix|; "'s/$/ is not used by any defined root/' |
-          tee "$tmp" || true
 
-        if ${{ inputs.fail }} && [[ -s "$tmp" ]]; then
+        ret=0
+
+        if ! weeder ${{ inputs.weeder-arguments }} |
+          sed "s|^|$prefix|; "'s/$/ is not used by any defined root/' |
+          tee "$tmp"; then
+          ret=$?
+        fi
+
+        # If we succeed, we can always succed regardless of version
+        ((ret)) || exit 0
+
+        # If we're configured to fail, we can always fail regardless of version
+        if ${{ inputs.fail }}; then
           echo "Configured to fail and unused functions found"
-          exit 1
+          exit $ret
         fi
