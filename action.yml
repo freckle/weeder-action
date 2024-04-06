@@ -51,9 +51,7 @@ runs:
       name: Run weeder
       shell: bash
       env:
-        # Value will be 1 if greater, 0 if equal
-        CAN_TRUST_WEEDER_EXIT_CODE: |
-          contains(fromJSON('[1, 0]'), steps.weeder-check.outputs.compare-value)
+        WEEDER_VERCMP: ${{ steps.weeder-check.outputs.compare-value }}
       run: |
         echo "::add-matcher::${{ github.action_path }}/matcher.json"
         trap 'echo "::remove-matcher owner=freckle-weeder::"' EXIT
@@ -87,7 +85,7 @@ runs:
 
         # Otherwise, if we know we're v2.7+ and the exit code was not
         # weeds-found (288), we should still fail.
-        if CAN_TRUST_WEEDER_EXIT_CODE && ((ret != 288)); then
+        if ((WEEDER_VERCMP >= 0)) && ((ret != 288)); then
           echo "Weeder encountered some other error" >&2
           exit $ret
         fi
