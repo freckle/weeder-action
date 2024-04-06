@@ -51,7 +51,8 @@ runs:
       name: Run weeder
       shell: bash
       env:
-        CAN_TRUST_WEEDER_EXIT_CODE: ${{ steps.weeder-check.outputs.compare-value == 1 }}
+        CAN_TRUST_WEEDER_EXIT_CODE:
+          ${{ steps.weeder-check.outputs.compare-value == 1 }}
       run: |
         echo "::add-matcher::${{ github.action_path }}/matcher.json"
         trap 'echo "::remove-matcher owner=freckle-weeder::"' EXIT
