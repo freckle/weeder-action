@@ -6,7 +6,7 @@ on:
     branches: main
 
 jobs:
-  test:
+  tests:
     runs-on: ubuntu-latest
 
     strategy:
@@ -33,3 +33,15 @@ jobs:
       - run: |
           # Expected to find this unused function
           grep -F goodbyeWorld "${{ steps.weeder.outputs.log }}"
+
+  # This Job will only run (and fail) if the tests matrix fails. This way, we
+  # can make it our required status (skipped == green) rather than having to
+  # maintain a required status per element of the tests matrix.
+  test:
+    needs: tests
+    if: ${{ failure() || cancelled() }}
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "Upstream Jobs have failed or been cancelled"
+          exit 1
