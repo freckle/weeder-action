@@ -40,6 +40,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-stack-
 
+      - if: ${{ runner.os == 'macOS' }}
+        run: curl -sSL https://get.haskellstack.org/ | sh
+
       - if: ${{ matrix.asset != 'none' }}
         shell: bash
         run: |
