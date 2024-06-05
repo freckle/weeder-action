@@ -70,22 +70,32 @@ runs:
           ret=${PIPESTATUS[0]} # can't trust $? here, apparently
         fi
 
-        echo "Weeder exit code: $ret"
+        unused_functions_found=0
+
+        if ((WEEDER_VERCMP >= 0)); then
+          if ((ret == 228)); then
+            unused_functions_found=1
+          fi
+        else
+          if [[ -s "$tmp" ]]; then
+            unused_functions_found=1
+          fi
+        fi
 
         if ((!ret)); then
           echo "No unused functions found"
           exit 0
         fi
 
-        # If we're configured to fail, we can always fail regardless of version
-        if ${{ inputs.fail }}; then
-          echo "Configured to fail and unused functions found"
-          exit $ret
+        if ((unused_functions_found)); then
+          if ${{ inputs.fail }}; then
+            echo "Configured to fail and unused functions found"
+            exit 1
+          fi
+
+          echo "Unused functions found, but not configured to fail"
+          exit 0
         fi
 
-        # Otherwise, if we know we're v2.7+ and the exit code was not
-        # weeds-found (228), we should still fail.
-        if ((WEEDER_VERCMP >= 0)) && ((ret != 228)); then
-          echo "Weeder encountered some other error" >&2
-          exit $ret
-        fi
+        echo "Weeder encountered some other error" >&2
+        exit $ret
