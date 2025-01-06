@@ -16,6 +16,9 @@ oses:
     zip: '"C:\Program Files\7-Zip\7z.exe" a -tzip'
 
 ghcs:
+  ghc-9.8.4:
+    version: 2.9.0
+    resolver: lts-23.3
   ghc-9.6.6:
     version: 2.8.0
     resolver: lts-22.30
