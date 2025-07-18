@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "outDir": "./lib",
+    "allowJs": true,
+    "target": "ES2020",
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "strictNullChecks": true,
+    "noImplicitThis": true,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "noEmitOnError": true,
+    "removeComments": true,
+    "module": "CommonJS",
+    "esModuleInterop": true,
+    "strict": true
+  },
+  "include": ["./src/**/*"],
+  "exclude": ["./src/**/*.test.ts"]
+}
