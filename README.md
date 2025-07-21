@@ -29,34 +29,44 @@ steps:
 
 ## Inputs
 
-- **ghc-version**: You must specify the `ghc-version` your project is compiled
-  with (to ensure `.hie` compatibility).
+<!-- action-docs-inputs action="action.yml" -->
 
-  This Action maintains and installs pre-compiled `weeder` binaries for Mac and
-  Linux across all GHC versions that `weeder` compiles on (8.8.1 to 9.2.5 at
-  time of this writing). Please file an Issue if you're using a GHC that's not
-  supported, but for which a released version of `weeder` does exist.
+## Inputs
 
-- **weeder-arguments**: Arguments to pass when invoking `weeder`
+| name                | description                                                               | required | default              |
+| ------------------- | ------------------------------------------------------------------------- | -------- | -------------------- |
+| `ghc-version`       | <p>Full version of GHC your project uses, to ensure HIE compatibility</p> | `true`   | `""`                 |
+| `weeder-arguments`  | <p>Arguments to pass when invoking weeder</p>                             | `false`  | `--require-hs-files` |
+| `working-directory` | <p>Change to this directory before operating</p>                          | `false`  | `.`                  |
+| `fail`              | <p>Fail the build if unused functions found?</p>                          | `false`  | `true`               |
 
-  Default is `--require-hs-files`, which ensures that cached builds that have
-  since removed files (but still have their `.hie` files present) don't generate
-  false positives.
-
-- **working-directory**: Change to this directory before running.
-
-  This can be necessary if in a mono-repository.
-
-- **fail**: Fail if we find unused functions?
-
-  Default is true. This is useful if you want to not fail the step, but do
-  something else with the weeder output yourself.
+<!-- action-docs-inputs action="action.yml" -->
 
 ## Outputs
 
-This Action sets an output named `log` to the path containing the output of
-running `weeder`. This can be useful if you use `fail: false` and wish to do
-something on that output yourself afterwards.
+<!-- action-docs-outputs action="action.yml" -->
+
+## Outputs
+
+| name  | description                                                                                                                                                     |
+| ----- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `log` | <p>Path to a file containing found weeds in JSON format; a list of objects with the keys <code>identifier</code>, <code>file</code>, and <code>line</code>.</p> |
+
+<!-- action-docs-outputs action="action.yml" -->
+
+## Release
+
+To trigger a release (and update the `@v{major}` tag), merge a commit to `main`
+that follows [Conventional Commits][]. In short,
+
+- `fix:` to trigger a patch release,
+- `feat:` for minor, and
+- `feat!:` and major
+
+We don't enforce conventional commits generally (though you are free do so),
+it's only required if you want to trigger release.
+
+[conventional commits]: https://www.conventionalcommits.org/en/v1.0.0/#summary
 
 ---
 

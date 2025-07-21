@@ -2,24 +2,26 @@ name: Weeder
 description: Annotate unused functions in a Haskell project
 inputs:
   ghc-version:
-    description: Full version of GHC your project uses (required)
+    description: |
+      Full version of GHC your project uses, to ensure HIE compatibility
     required: true
   weeder-arguments:
     description: |
-      Arguments to pass when invoking weeder (default --require-hs-files)
-    required: true
+      Arguments to pass when invoking weeder
     default: --require-hs-files
   working-directory:
-    description: Change to this directory before operating
-    required: true
+    description: |
+      Change to this directory before operating
     default: .
   fail:
-    description: Fail the build if unused functions found? (default true)
-    required: true
+    description: |
+      Fail the build if unused functions found?
     default: true
 outputs:
   log:
-    description: Path to file containing the output from weeder
+    description: |
+      Path to a file containing found weeds in JSON format; a list of objects
+      with the keys `identifier`, `file`, and `line`.
     value: ${{ steps.weeder.outputs.log }}
 runs:
   using: composite
