@@ -1,0 +1,15 @@
+plugins:
+  - - "@semantic-release/commit-analyzer"
+    - preset: "conventionalcommits"
+  - - "@semantic-release/release-notes-generator"
+    - preset: "conventionalcommits"
+  - - "@semantic-release/github"
+    - successCommentCondition: false
+      failCommentCondition: false
+
+  - "semantic-release-major-tag"
+
+branches:
+  - main
+  - name: rc/*
+    prerelease: '${name.replace(/^rc\//, "rc-")}'
