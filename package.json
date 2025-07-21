@@ -1,0 +1,20 @@
+{
+  "name": "weeder-action",
+  "version": "0.0.0",
+  "description": "Action description",
+  "main": "lib/main.js",
+  "scripts": {
+    "readme": "npx action-docs -u && prettier --write README.md"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/freckle/weeder-action.git"
+  },
+  "author": "Freckle",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "action-docs": "^2.5.1",
+    "prettier": "^3.6.2"
+  }
+}
