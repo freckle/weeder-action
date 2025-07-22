@@ -26,8 +26,6 @@ steps:
       ghc-version: ${{ steps.stack.outputs.compiler-version }}
 ```
 
-## Inputs
-
 <!-- action-docs-inputs action="action.yml" -->
 
 ## Inputs
@@ -40,8 +38,6 @@ steps:
 | `fail`              | <p>Fail the build if unused functions found?</p>                          | `false`  | `true`               |
 
 <!-- action-docs-inputs action="action.yml" -->
-
-## Outputs
 
 <!-- action-docs-outputs action="action.yml" -->
 
