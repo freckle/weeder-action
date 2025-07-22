@@ -21,7 +21,7 @@ steps:
   - uses: actions/checkout@v4
   - id: stack
     uses: freckle/stack-action@v5
-  - uses: freckle/weeder-action@v2
+  - uses: freckle/weeder-action@v3
     with:
       ghc-version: ${{ steps.stack.outputs.compiler-version }}
 ```
