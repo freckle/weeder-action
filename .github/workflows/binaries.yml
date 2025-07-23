@@ -70,7 +70,7 @@ jobs:
             exit 1
           fi
 
-          stack install weeder-${{ matrix.version }} --local-bin-path .
+          stack install ${{ matrix.target }} --local-bin-path .
 
           ${{ matrix.zip }} '${{ matrix.asset }}' ${{ matrix.exe }}
           gh --repo '${{ github.repository }}' release upload '${{ matrix.release }}' '${{ matrix.asset }}'
