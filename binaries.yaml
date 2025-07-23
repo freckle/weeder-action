@@ -16,103 +16,109 @@ oses:
     zip: '"C:\Program Files\7-Zip\7z.exe" a -tzip'
 
 ghcs:
+  ghc-9.10.2:
+    target: weeder
+    resolver: lts-24.1
+    extra-deps: >-
+      {"github": "ocharles/weeder", "commit": "176869a9a6c6c6d926f0c433f5b869a35c867807"},
+      'toml-reader-0.2.2.0@sha256:8125042968480ea6da2a470289630e9b8edb4e504f969e6c75261f0cad0f5e8c,3400'
   ghc-9.8.4:
-    version: 2.9.0
+    target: weeder-2.9.0
     resolver: lts-23.3
   ghc-9.6.6:
-    version: 2.8.0
+    target: weeder-2.8.0
     resolver: lts-22.30
   ghc-9.6.5:
-    version: 2.7.0
+    target: weeder-2.7.0
     resolver: lts-22.21
     extra-deps: >-
       ansi-wl-pprint-0.6.9, optparse-applicative-0.17.1.0
   ghc-9.6.4:
-    version: 2.7.0
+    target: weeder-2.7.0
     resolver: lts-22.9
     extra-deps: >-
       ansi-wl-pprint-0.6.9, optparse-applicative-0.17.1.0
   ghc-9.6.3:
-    version: 2.7.0
+    target: weeder-2.7.0
     resolver: lts-22.6
     extra-deps: >-
       ansi-wl-pprint-0.6.9, optparse-applicative-0.17.1.0
   ghc-9.4.8:
-    version: 2.7.0
+    target: weeder-2.7.0
     resolver: lts-21.25
     extra-deps: ""
   ghc-9.4.7:
-    version: 2.7.0
+    target: weeder-2.7.0
     resolver: lts-21.13
     extra-deps: ""
   ghc-9.4.6:
-    version: 2.7.0
+    target: weeder-2.7.0
     resolver: lts-21.8
     extra-deps: ""
   ghc-9.4.5:
-    version: 2.6.0
+    target: weeder-2.6.0
     resolver: lts-21.0
     extra-deps: ""
   ghc-9.2.8:
-    version: 2.4.0
+    target: weeder-2.4.0
     resolver: lts-20.25
     extra-deps: ""
   ghc-9.2.7:
-    version: 2.4.0
+    target: weeder-2.4.0
     resolver: lts-20.13
     extra-deps: ""
   ghc-9.2.6:
-    version: 2.4.0
+      target: weeder-2.4.0
     resolver: lts-20.12
     extra-deps: ""
   ghc-9.2.5:
-    version: 2.4.0
+    target: weeder-2.4.0
     resolver: lts-20.0
     extra-deps: ""
   ghc-9.0.2:
     resolver: lts-19.0
-    version: 2.3.1
+    target: weeder-2.3.1
     extra-deps: ""
   ghc-8.10.7:
-    version: 2.2.0
+    target: weeder-2.2.0
     resolver: lts-18.9
     extra-deps: >-
       base16-bytestring-1.0.0.0, dhall-1.40.2, generic-lens-2.2.1.0,
       generic-lens-core-2.2.1.0
   ghc-8.10.6:
-    version: 2.2.0
+    target: weeder-2.2.0
     resolver: lts-18.7
     extra-deps: >-
       base16-bytestring-1.0.0.0, dhall-1.40.2, generic-lens-2.2.1.0,
       generic-lens-core-2.2.1.0
   ghc-8.10.4:
-    version: 2.2.0
+    target: weeder-2.2.0
     resolver: lts-17.3
     extra-deps: >-
       base16-bytestring-1.0.0.0, dhall-1.40.2, generic-lens-2.2.1.0,
       generic-lens-core-2.2.1.0
   ghc-8.10.3:
-    version: 2.2.0
+    target: weeder-2.2.0
     resolver: lts-17.0
     extra-deps: >-
       base16-bytestring-1.0.0.0, dhall-1.40.2, generic-lens-2.2.1.0,
       generic-lens-core-2.2.1.0
   ghc-8.8.4:
-    version: 2.2.0
+    target: weeder-2.2.0
     resolver: lts-16.12
     extra-deps: >-
       dhall-1.40.2, generic-lens-2.2.1.0, generic-lens-core-2.2.1.0,
       base16-bytestring-1.0.2.0, prettyprinter-1.7.1,
       prettyprinter-ansi-terminal-1.1.2, repline-0.4.2.0, haskeline-0.8.2
   ghc-8.8.3:
-    version: 2.2.0
+    target: weeder-2.2.0
     resolver: lts-15.4
     extra-deps: >-
       dhall-1.40.2, generic-lens-2.2.1.0, generic-lens-core-2.2.1.0,
       base16-bytestring-1.0.2.0, prettyprinter-1.7.1,
       prettyprinter-ansi-terminal-1.1.2, repline-0.4.2.0, haskeline-0.8.2
   ghc-8.8.2:
-    version: 2.2.0
+    target: weeder-2.2.0
     resolver: lts-15.0
     extra-deps: >-
       dhall-1.40.2, generic-lens-2.2.1.0, generic-lens-core-2.2.1.0,
