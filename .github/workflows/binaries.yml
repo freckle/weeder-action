@@ -11,6 +11,7 @@ jobs:
       - uses: actions/checkout@v4
       - id: generate
         run: |
+          export WEEDER_BINARIES_OVERWRITE=1
           ./.github/bin/build-binaries-matrix > matrix
           cat >>"$GITHUB_OUTPUT" <<EOM
           matrix<<EOJSON
