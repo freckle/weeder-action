@@ -17,11 +17,10 @@ oses:
 
 ghcs:
   ghc-9.10.2:
-    target: weeder
-    resolver: lts-24.1
+    target: weeder-2.10.0
+    resolver: lts-24.2
     extra-deps: >-
-      {"github": "ocharles/weeder", "commit": "176869a9a6c6c6d926f0c433f5b869a35c867807"},
-      'toml-reader-0.2.2.0@sha256:8125042968480ea6da2a470289630e9b8edb4e504f969e6c75261f0cad0f5e8c,3400'
+      toml-reader-0.2.2.0
   ghc-9.8.4:
     target: weeder-2.9.0
     resolver: lts-23.3
