@@ -11,9 +11,12 @@ jobs:
       - uses: actions/checkout@v4
       - id: generate
         run: |
-          set -Eeu
           ./.github/bin/build-binaries-matrix > matrix
-          echo "matrix=$(cat matrix)" >> "$GITHUB_OUTPUT"
+          cat >>"$GITHUB_OUTPUT" <<EOM
+          matrix<<EOJSON
+          $(cat matrix)
+          EOJSON
+          EOM
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     outputs:
