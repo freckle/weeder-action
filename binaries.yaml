@@ -68,7 +68,7 @@ ghcs:
     resolver: lts-20.13
     extra-deps: ""
   ghc-9.2.6:
-      target: weeder-2.4.0
+    target: weeder-2.4.0
     resolver: lts-20.12
     extra-deps: ""
   ghc-9.2.5:
