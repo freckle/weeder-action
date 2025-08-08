@@ -11,9 +11,10 @@ jobs:
       - uses: actions/checkout@v4
       - id: generate
         run: |
+          ./.github/bin/build-binaries-matrix > matrix
           cat >>"$GITHUB_OUTPUT" <<EOM
           matrix<<EOJSON
-          $(./.github/bin/build-binaries-matrix)
+          $(cat matrix)
           EOJSON
           EOM
         env:
