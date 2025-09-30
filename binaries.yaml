@@ -16,6 +16,11 @@ oses:
     zip: '"C:\Program Files\7-Zip\7z.exe" a -tzip'
 
 ghcs:
+  ghc-9.10.3:
+    target: weeder-2.10.0
+    resolver: lts-24.13
+    extra-deps: >-
+      toml-reader-0.2.2.0
   ghc-9.10.2:
     target: weeder-2.10.0
     resolver: lts-24.2
