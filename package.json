@@ -31,7 +31,7 @@
     "@types/node": "^22.18.8",
     "@vercel/ncc": "^0.38.3",
     "action-docs": "^2.5.1",
-    "eslint": "^9.31.0",
+    "eslint": "^9.37.0",
     "jest": "^30.0.0",
     "prettier": "^3.6.2",
     "ts-jest": "^29.2.5",
