@@ -21,9 +21,9 @@
     "@actions/core": "^1.11.1",
     "@actions/exec": "^1.1.1",
     "@actions/tool-cache": "^2.0.2",
-    "@types/semver": "^7.7.0",
+    "@types/semver": "^7.7.1",
     "@types/temp": "^0.9.4",
-    "semver": "^7.7.2",
+    "semver": "^7.7.3",
     "temp": "^0.9.4"
   },
   "devDependencies": {
