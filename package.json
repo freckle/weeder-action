@@ -18,7 +18,7 @@
   "author": "Freckle",
   "license": "MIT",
   "dependencies": {
-    "@actions/core": "^1.11.1",
+    "@actions/core": "^2.0.0",
     "@actions/exec": "^1.1.1",
     "@actions/tool-cache": "^2.0.2",
     "@types/semver": "^7.7.1",
