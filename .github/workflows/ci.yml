@@ -19,7 +19,7 @@ jobs:
       # Upload the (potentially) updated dist/index.js file and use that in the
       # integration tests. This ensures that PRs that haven't updated it (e.g.
       # Renovate) will be testing the dist/index.js that will be released.
-      - uses: actions/upload-artifact@v5
+      - uses: actions/upload-artifact@v6
         with:
           name: dist
           path: dist/index.js
@@ -47,7 +47,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v6
-      - uses: actions/download-artifact@v6
+      - uses: actions/download-artifact@v7
         with:
           name: dist
           path: dist # overwrite dist/index.js
