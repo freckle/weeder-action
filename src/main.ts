@@ -2,8 +2,8 @@ import * as core from "@actions/core";
 import * as fs from "fs";
 import temp from "temp";
 
-import { getInputs } from "./inputs";
-import { runWeeder } from "./weeder";
+import { getInputs } from "./inputs.js";
+import { runWeeder } from "./weeder.js";
 
 async function run() {
   try {

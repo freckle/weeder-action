@@ -12,7 +12,8 @@
     "allowUnusedLabels": false,
     "noEmitOnError": true,
     "removeComments": true,
-    "module": "CommonJS",
+    "module": "ES2020",
+    "moduleResolution": "node",
     "esModuleInterop": true,
     "strict": true
   },
