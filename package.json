@@ -1,6 +1,7 @@
 {
   "name": "weeder-action",
   "version": "0.0.0",
+  "type": "module",
   "description": "Action description",
   "main": "lib/main.js",
   "scripts": {
@@ -19,7 +20,7 @@
   "license": "MIT",
   "dependencies": {
     "@actions/core": "^2.0.3",
-    "@actions/exec": "^2.0.0",
+    "@actions/exec": "^3.0.0",
     "@actions/tool-cache": "^3.0.1",
     "@types/semver": "^7.7.1",
     "@types/temp": "^0.9.4",
