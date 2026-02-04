@@ -15,7 +15,8 @@
     "module": "ES2020", // The module system TypeScript will transpile src into. See: https://www.typescriptlang.org/tsconfig/#module
     "moduleResolution": "bundler", // Rules on how to find imports. We use ncc as a bundler. See: https://www.typescriptlang.org/tsconfig/#moduleResolution
     "esModuleInterop": true,
-    "strict": true
+    "strict": true,
+    "isolatedModules": true
   },
   "include": [
     "./src/**/*"
