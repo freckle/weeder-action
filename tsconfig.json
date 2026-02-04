@@ -12,8 +12,8 @@
     "allowUnusedLabels": false,
     "noEmitOnError": true,
     "removeComments": true,
-    "module": "ES2020", // The module system TypeScript will transpile src into. See: https://www.typescriptlang.org/tsconfig/#module
-    "moduleResolution": "bundler", // Rules on how to find imports. We use ncc as a bundler. See: https://www.typescriptlang.org/tsconfig/#moduleResolution
+    "module": "ES2020", // Output ES2020 modules to work with ESM-only packages like @actions/exec v3
+    "moduleResolution": "bundler", // Bundler resolution for ncc
     "esModuleInterop": true,
     "strict": true,
     "isolatedModules": true

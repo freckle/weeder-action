@@ -1,7 +1,6 @@
 {
   "name": "weeder-action",
   "version": "0.0.0",
-  "type": "module",
   "description": "Action description",
   "main": "lib/main.js",
   "scripts": {
