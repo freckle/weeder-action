@@ -23,7 +23,7 @@
     "@actions/tool-cache": "^3.0.1",
     "@types/semver": "^7.7.1",
     "@types/temp": "^0.9.4",
-    "semver": "^7.7.3",
+    "semver": "^7.7.4",
     "temp": "^0.9.4"
   },
   "devDependencies": {
