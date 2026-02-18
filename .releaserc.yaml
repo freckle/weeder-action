@@ -11,7 +11,7 @@ plugins:
 
   # Update dist, in case Renovate PRs merged without doing so
   - - "@semantic-release/exec"
-    - prepareCmd: "yarn install && yarn run build"
+    - prepareCmd: "npm ci && npm run build"
 
   - - "@semantic-release/git"
     - assets: "dist/index.js"

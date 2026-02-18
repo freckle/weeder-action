@@ -24,16 +24,16 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version-file: .nvmrc
-          cache: yarn
+          cache: npm
 
       - name: Install Dependencies
         id: install
-        run: yarn install --frozen-lockfile
+        run: npm ci
 
       - name: Check Formatting
         id: format
-        run: yarn format:check
+        run: npm run format:check
 
       - name: Lint
         id: lint
-        run: yarn lint
+        run: npm run lint

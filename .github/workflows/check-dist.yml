@@ -33,7 +33,7 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version-file: .nvmrc
-          cache: yarn
+          cache: npm
 
       - name: Remove dist/ Directory
         id: remove-dist
@@ -41,11 +41,11 @@ jobs:
 
       - name: Install Dependencies
         id: install
-        run: yarn install --frozen-lockfile
+        run: npm ci
 
       - name: Build dist/ Directory
         id: build
-        run: yarn bundle
+        run: npm run bundle
 
       # This will fail the workflow if the `dist/` directory is different than
       # expected.
