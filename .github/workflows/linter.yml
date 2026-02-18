@@ -1,0 +1,39 @@
+name: Lint Codebase
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    name: Lint Codebase
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        id: setup-node
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: .nvmrc
+          cache: yarn
+
+      - name: Install Dependencies
+        id: install
+        run: yarn install --frozen-lockfile
+
+      - name: Check Formatting
+        id: format
+        run: yarn format:check
+
+      - name: Lint
+        id: lint
+        run: yarn lint

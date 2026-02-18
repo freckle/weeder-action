@@ -1,13 +1,15 @@
-import { createDefaultPreset, type JestConfigWithTsJest } from "ts-jest";
+import type { Config } from "jest";
 
-const presetConfig = createDefaultPreset({
-  isolatedModules: true,
-});
-
-const jestConfig: JestConfigWithTsJest = {
-  ...presetConfig,
-  resetMocks: true,
+const config: Config = {
+  preset: "ts-jest",
   testEnvironment: "node",
+  testMatch: ["**/__tests__/**/*.test.ts"],
+  collectCoverageFrom: ["src/**/*.ts"],
+  coveragePathIgnorePatterns: ["/node_modules/", "__tests__"],
+  moduleFileExtensions: ["ts", "js"],
+  resolver: "ts-jest-resolver",
+  verbose: true,
+  clearMocks: true,
 };
 
-export default jestConfig;
+export default config;

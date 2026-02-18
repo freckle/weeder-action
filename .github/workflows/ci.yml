@@ -2,9 +2,12 @@ name: CI
 
 on:
   pull_request:
+  push:
+    branches:
+      - main
 
 jobs:
-  build:
+  test-typescript:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
@@ -12,31 +15,10 @@ jobs:
         with:
           cache: yarn
           node-version-file: ".nvmrc"
-      - run: yarn install
-      - run: yarn build
-      - run: yarn test
+      - run: yarn install --frozen-lockfile
+      - run: yarn ci-test
 
-      # Upload the (potentially) updated dist/index.js file and use that in the
-      # integration tests. This ensures that PRs that haven't updated it (e.g.
-      # Renovate) will be testing the dist/index.js that will be released.
-      - uses: actions/upload-artifact@v6
-        with:
-          name: dist
-          path: dist/index.js
-
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v6
-      - uses: actions/setup-node@v6
-        with:
-          cache: yarn
-          node-version-file: ".nvmrc"
-      - run: yarn install
-      - run: yarn lint
-
-  tests:
-    needs: build
+  test-action-shard:
     runs-on: ubuntu-latest
 
     strategy:
@@ -47,10 +29,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v6
-      - uses: actions/download-artifact@v7
-        with:
-          name: dist
-          path: dist # overwrite dist/index.js
 
       - id: stack
         uses: freckle/stack-action@v5
@@ -69,14 +47,12 @@ jobs:
           jq '.[] | .identifier' '${{ steps.weeder.outputs.log }}' |
             grep -F goodbyeWorld
 
-  # This Job will only run (and fail) if the tests matrix fails. This way, we
-  # can make it our required status (skipped == green) rather than having to
-  # maintain a required status per element of the tests matrix.
-  test:
-    needs: tests
-    if: ${{ failure() || cancelled() }}
+  test-action:
+    if: always()
+    needs:
+      - test-action-shard
     runs-on: ubuntu-latest
     steps:
-      - run: |
-          echo "Upstream Jobs have failed or been cancelled"
-          exit 1
+      - uses: re-actors/alls-green@release/v1
+        with:
+          jobs: ${{ toJSON(needs) }}

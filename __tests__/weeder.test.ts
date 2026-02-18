@@ -1,4 +1,4 @@
-import { cleanWeederVersion } from "./weeder";
+import { cleanWeederVersion } from "../src/weeder";
 
 describe("cleanWeederVersion", () => {
   describe("valid version strings", () => {
