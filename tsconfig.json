@@ -14,7 +14,8 @@
     "removeComments": true,
     "module": "Node16",
     "esModuleInterop": true,
-    "strict": true
+    "strict": true,
+    "isolatedModules": true
   },
   "include": ["./src/**/*"],
   "exclude": ["./src/**/*.test.ts"]
