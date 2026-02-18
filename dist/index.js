@@ -1,43 +1,22 @@
-'use strict';
-
-var require$$0 = require('os');
-var require$$0$1 = require('crypto');
-var require$$1 = require('fs');
-var require$$1$2 = require('path');
-var require$$2 = require('http');
-var require$$3 = require('https');
-require('net');
-var require$$1$1 = require('tls');
-var require$$4 = require('events');
-var require$$5$1 = require('assert');
-var require$$10 = require('util');
-var node_module = require('node:module');
-var require$$5 = require('string_decoder');
-var require$$2$1 = require('child_process');
-var require$$6 = require('timers');
-var require$$2$2 = require('constants');
-var require$$9 = require('stream');
-
-var _documentCurrentScript = typeof document !== 'undefined' ? document.currentScript : null;
-function _interopNamespaceDefault(e) {
-	var n = Object.create(null);
-	if (e) {
-		Object.keys(e).forEach(function (k) {
-			if (k !== 'default') {
-				var d = Object.getOwnPropertyDescriptor(e, k);
-				Object.defineProperty(n, k, d.get ? d : {
-					enumerable: true,
-					get: function () { return e[k]; }
-				});
-			}
-		});
-	}
-	n.default = e;
-	return Object.freeze(n);
-}
-
-var require$$1__namespace$1 = /*#__PURE__*/_interopNamespaceDefault(require$$1);
-var require$$1__namespace = /*#__PURE__*/_interopNamespaceDefault(require$$1$2);
+import require$$0 from 'os';
+import require$$0$1 from 'crypto';
+import * as require$$1$1 from 'fs';
+import require$$1__default from 'fs';
+import * as require$$1 from 'path';
+import require$$1__default$1 from 'path';
+import require$$2 from 'http';
+import require$$3 from 'https';
+import 'net';
+import require$$1$2 from 'tls';
+import require$$4 from 'events';
+import require$$5$1 from 'assert';
+import require$$10 from 'util';
+import { createRequire } from 'node:module';
+import require$$5 from 'string_decoder';
+import require$$2$1 from 'child_process';
+import require$$6 from 'timers';
+import require$$2$2 from 'constants';
+import require$$9 from 'stream';
 
 var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
@@ -279,7 +258,7 @@ function requireFileCommand () {
 	// We use any as a valid input type
 	/* eslint-disable @typescript-eslint/no-explicit-any */
 	const crypto = __importStar(require$$0$1);
-	const fs = __importStar(require$$1);
+	const fs = __importStar(require$$1__default);
 	const os = __importStar(require$$0);
 	const utils_1 = requireUtils$1();
 	function issueFileCommand(command, message) {
@@ -426,7 +405,7 @@ var hasRequiredTunnel$1;
 function requireTunnel$1 () {
 	if (hasRequiredTunnel$1) return tunnel$1;
 	hasRequiredTunnel$1 = 1;
-	var tls = require$$1$1;
+	var tls = require$$1$2;
 	var http = require$$2;
 	var https = require$$3;
 	var events = require$$4;
@@ -701,13 +680,13 @@ function requireTunnel () {
 
 var undici = {};
 
-const require$i = node_module.createRequire((typeof document === 'undefined' ? require('u' + 'rl').pathToFileURL(__filename).href : (_documentCurrentScript && _documentCurrentScript.tagName.toUpperCase() === 'SCRIPT' && _documentCurrentScript.src || new URL('index.js', document.baseURI).href)));
+const require$i = createRequire(import.meta.url);
 function __require$h() { return require$i("node:assert"); }
 
-const require$h = node_module.createRequire((typeof document === 'undefined' ? require('u' + 'rl').pathToFileURL(__filename).href : (_documentCurrentScript && _documentCurrentScript.tagName.toUpperCase() === 'SCRIPT' && _documentCurrentScript.src || new URL('index.js', document.baseURI).href)));
+const require$h = createRequire(import.meta.url);
 function __require$g() { return require$h("node:net"); }
 
-const require$g = node_module.createRequire((typeof document === 'undefined' ? require('u' + 'rl').pathToFileURL(__filename).href : (_documentCurrentScript && _documentCurrentScript.tagName.toUpperCase() === 'SCRIPT' && _documentCurrentScript.src || new URL('index.js', document.baseURI).href)));
+const require$g = createRequire(import.meta.url);
 function __require$f() { return require$g("node:http"); }
 
 var symbols$4;
@@ -786,19 +765,19 @@ function requireSymbols$4 () {
 	return symbols$4;
 }
 
-const require$f = node_module.createRequire((typeof document === 'undefined' ? require('u' + 'rl').pathToFileURL(__filename).href : (_documentCurrentScript && _documentCurrentScript.tagName.toUpperCase() === 'SCRIPT' && _documentCurrentScript.src || new URL('index.js', document.baseURI).href)));
+const require$f = createRequire(import.meta.url);
 function __require$e() { return require$f("node:stream"); }
 
-const require$e = node_module.createRequire((typeof document === 'undefined' ? require('u' + 'rl').pathToFileURL(__filename).href : (_documentCurrentScript && _documentCurrentScript.tagName.toUpperCase() === 'SCRIPT' && _documentCurrentScript.src || new URL('index.js', document.baseURI).href)));
+const require$e = createRequire(import.meta.url);
 function __require$d() { return require$e("node:buffer"); }
 
-const require$d = node_module.createRequire((typeof document === 'undefined' ? require('u' + 'rl').pathToFileURL(__filename).href : (_documentCurrentScript && _documentCurrentScript.tagName.toUpperCase() === 'SCRIPT' && _documentCurrentScript.src || new URL('index.js', document.baseURI).href)));
+const require$d = createRequire(import.meta.url);
 function __require$c() { return require$d("node:util"); }
 
-const require$c = node_module.createRequire((typeof document === 'undefined' ? require('u' + 'rl').pathToFileURL(__filename).href : (_documentCurrentScript && _documentCurrentScript.tagName.toUpperCase() === 'SCRIPT' && _documentCurrentScript.src || new URL('index.js', document.baseURI).href)));
+const require$c = createRequire(import.meta.url);
 function __require$b() { return require$c("node:querystring"); }
 
-const require$b = node_module.createRequire((typeof document === 'undefined' ? require('u' + 'rl').pathToFileURL(__filename).href : (_documentCurrentScript && _documentCurrentScript.tagName.toUpperCase() === 'SCRIPT' && _documentCurrentScript.src || new URL('index.js', document.baseURI).href)));
+const require$b = createRequire(import.meta.url);
 function __require$a() { return require$b("node:events"); }
 
 var errors;
@@ -2228,7 +2207,7 @@ function requireUtil$7 () {
 	return util$7;
 }
 
-const require$a = node_module.createRequire((typeof document === 'undefined' ? require('u' + 'rl').pathToFileURL(__filename).href : (_documentCurrentScript && _documentCurrentScript.tagName.toUpperCase() === 'SCRIPT' && _documentCurrentScript.src || new URL('index.js', document.baseURI).href)));
+const require$a = createRequire(import.meta.url);
 function __require$9() { return require$a("node:diagnostics_channel"); }
 
 var diagnostics;
@@ -3546,7 +3525,7 @@ function requireTimers () {
 	return timers;
 }
 
-const require$9 = node_module.createRequire((typeof document === 'undefined' ? require('u' + 'rl').pathToFileURL(__filename).href : (_documentCurrentScript && _documentCurrentScript.tagName.toUpperCase() === 'SCRIPT' && _documentCurrentScript.src || new URL('index.js', document.baseURI).href)));
+const require$9 = createRequire(import.meta.url);
 function __require$8() { return require$9("node:tls"); }
 
 var connect;
@@ -4130,7 +4109,7 @@ function requireLlhttp_simdWasm () {
 	return llhttp_simdWasm;
 }
 
-const require$8 = node_module.createRequire((typeof document === 'undefined' ? require('u' + 'rl').pathToFileURL(__filename).href : (_documentCurrentScript && _documentCurrentScript.tagName.toUpperCase() === 'SCRIPT' && _documentCurrentScript.src || new URL('index.js', document.baseURI).href)));
+const require$8 = createRequire(import.meta.url);
 function __require$7() { return require$8("node:zlib"); }
 
 var constants$3;
@@ -5065,13 +5044,13 @@ function requireDataUrl () {
 	return dataUrl;
 }
 
-const require$7 = node_module.createRequire((typeof document === 'undefined' ? require('u' + 'rl').pathToFileURL(__filename).href : (_documentCurrentScript && _documentCurrentScript.tagName.toUpperCase() === 'SCRIPT' && _documentCurrentScript.src || new URL('index.js', document.baseURI).href)));
+const require$7 = createRequire(import.meta.url);
 function __require$6() { return require$7("node:perf_hooks"); }
 
-const require$6 = node_module.createRequire((typeof document === 'undefined' ? require('u' + 'rl').pathToFileURL(__filename).href : (_documentCurrentScript && _documentCurrentScript.tagName.toUpperCase() === 'SCRIPT' && _documentCurrentScript.src || new URL('index.js', document.baseURI).href)));
+const require$6 = createRequire(import.meta.url);
 function __require$5() { return require$6("node:util/types"); }
 
-const require$5 = node_module.createRequire((typeof document === 'undefined' ? require('u' + 'rl').pathToFileURL(__filename).href : (_documentCurrentScript && _documentCurrentScript.tagName.toUpperCase() === 'SCRIPT' && _documentCurrentScript.src || new URL('index.js', document.baseURI).href)));
+const require$5 = createRequire(import.meta.url);
 function __require$4() { return require$5("node:worker_threads"); }
 
 var webidl_1;
@@ -12690,7 +12669,7 @@ function requireAgent () {
 	return agent;
 }
 
-const require$4 = node_module.createRequire((typeof document === 'undefined' ? require('u' + 'rl').pathToFileURL(__filename).href : (_documentCurrentScript && _documentCurrentScript.tagName.toUpperCase() === 'SCRIPT' && _documentCurrentScript.src || new URL('index.js', document.baseURI).href)));
+const require$4 = createRequire(import.meta.url);
 function __require$3() { return require$4("node:url"); }
 
 var proxyAgent;
@@ -14065,7 +14044,7 @@ function requireUtil$5 () {
 	return util$5;
 }
 
-const require$3 = node_module.createRequire((typeof document === 'undefined' ? require('u' + 'rl').pathToFileURL(__filename).href : (_documentCurrentScript && _documentCurrentScript.tagName.toUpperCase() === 'SCRIPT' && _documentCurrentScript.src || new URL('index.js', document.baseURI).href)));
+const require$3 = createRequire(import.meta.url);
 function __require$2() { return require$3("node:async_hooks"); }
 
 var hasRequiredApiRequest;
@@ -15917,7 +15896,7 @@ function requirePluralizer () {
 	return pluralizer;
 }
 
-const require$2 = node_module.createRequire((typeof document === 'undefined' ? require('u' + 'rl').pathToFileURL(__filename).href : (_documentCurrentScript && _documentCurrentScript.tagName.toUpperCase() === 'SCRIPT' && _documentCurrentScript.src || new URL('index.js', document.baseURI).href)));
+const require$2 = createRequire(import.meta.url);
 function __require$1() { return require$2("node:console"); }
 
 var pendingInterceptorsFormatter;
@@ -16421,7 +16400,7 @@ function requireDump () {
 	return dump;
 }
 
-const require$1 = node_module.createRequire((typeof document === 'undefined' ? require('u' + 'rl').pathToFileURL(__filename).href : (_documentCurrentScript && _documentCurrentScript.tagName.toUpperCase() === 'SCRIPT' && _documentCurrentScript.src || new URL('index.js', document.baseURI).href)));
+const require$1 = createRequire(import.meta.url);
 function __require() { return require$1("node:dns"); }
 
 var dns;
@@ -28998,7 +28977,7 @@ function requireSummary () {
 		Object.defineProperty(exports$1, "__esModule", { value: true });
 		exports$1.summary = exports$1.markdownSummary = exports$1.SUMMARY_DOCS_URL = exports$1.SUMMARY_ENV_VAR = void 0;
 		const os_1 = require$$0;
-		const fs_1 = require$$1;
+		const fs_1 = require$$1__default;
 		const { access, appendFile, writeFile } = fs_1.promises;
 		exports$1.SUMMARY_ENV_VAR = 'GITHUB_STEP_SUMMARY';
 		exports$1.SUMMARY_DOCS_URL = 'https://docs.github.com/actions/using-workflows/workflow-commands-for-github-actions#adding-a-job-summary';
@@ -29316,7 +29295,7 @@ function requirePathUtils () {
 	pathUtils.toPosixPath = toPosixPath;
 	pathUtils.toWin32Path = toWin32Path;
 	pathUtils.toPlatformPath = toPlatformPath;
-	const path = __importStar(require$$1$2);
+	const path = __importStar(require$$1__default$1);
 	/**
 	 * toPosixPath converts the given path to the posix form. On Windows, \\ will be
 	 * replaced with /.
@@ -29419,8 +29398,8 @@ function requireIoUtil () {
 		exports$1.isRooted = isRooted;
 		exports$1.tryGetExecutablePath = tryGetExecutablePath;
 		exports$1.getCmdPath = getCmdPath;
-		const fs = __importStar(require$$1);
-		const path = __importStar(require$$1$2);
+		const fs = __importStar(require$$1__default);
+		const path = __importStar(require$$1__default$1);
 		_a = fs.promises
 		// export const {open} = 'fs'
 		, exports$1.chmod = _a.chmod, exports$1.copyFile = _a.copyFile, exports$1.lstat = _a.lstat, exports$1.mkdir = _a.mkdir, exports$1.open = _a.open, exports$1.readdir = _a.readdir, exports$1.rename = _a.rename, exports$1.rm = _a.rm, exports$1.rmdir = _a.rmdir, exports$1.stat = _a.stat, exports$1.symlink = _a.symlink, exports$1.unlink = _a.unlink;
@@ -29650,7 +29629,7 @@ function requireIo () {
 	io.which = which;
 	io.findInPath = findInPath;
 	const assert_1 = require$$5$1;
-	const path = __importStar(require$$1$2);
+	const path = __importStar(require$$1__default$1);
 	const ioUtil = __importStar(requireIoUtil());
 	/**
 	 * Copies a file or folder.
@@ -29967,7 +29946,7 @@ function requireToolrunner () {
 	const os = __importStar(require$$0);
 	const events = __importStar(require$$4);
 	const child = __importStar(require$$2$1);
-	const path = __importStar(require$$1$2);
+	const path = __importStar(require$$1__default$1);
 	const io = __importStar(requireIo());
 	const ioUtil = __importStar(requireIoUtil());
 	const timers_1 = require$$6;
@@ -30857,7 +30836,7 @@ function requireCore () {
 		const file_command_1 = requireFileCommand();
 		const utils_1 = requireUtils$1();
 		const os = __importStar(require$$0);
-		const path = __importStar(require$$1$2);
+		const path = __importStar(require$$1__default$1);
 		const oidc_utils_1 = requireOidcUtils();
 		/**
 		 * The code to exit an action
@@ -31202,9 +31181,9 @@ function requireOld () {
 	// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
 	// USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-	var pathModule = require$$1$2;
+	var pathModule = require$$1__default$1;
 	var isWindows = process.platform === 'win32';
-	var fs = require$$1;
+	var fs = require$$1__default;
 
 	// JavaScript implementation of realpath, ported from node pre-v6
 
@@ -31500,7 +31479,7 @@ function requireFs_realpath () {
 	realpath.monkeypatch = monkeypatch;
 	realpath.unmonkeypatch = unmonkeypatch;
 
-	var fs = require$$1;
+	var fs = require$$1__default;
 	var origRealpath = fs.realpath;
 	var origRealpathSync = fs.realpathSync;
 
@@ -32919,8 +32898,8 @@ function requireCommon () {
 	  return Object.prototype.hasOwnProperty.call(obj, field)
 	}
 
-	var fs = require$$1;
-	var path = require$$1$2;
+	var fs = require$$1__default;
+	var path = require$$1__default$1;
 	var minimatch = requireMinimatch();
 	var isAbsolute = requirePathIsAbsolute();
 	var Minimatch = minimatch.Minimatch;
@@ -33161,7 +33140,7 @@ function requireSync () {
 	var minimatch = requireMinimatch();
 	minimatch.Minimatch;
 	requireGlob().Glob;
-	var path = require$$1$2;
+	var path = require$$1__default$1;
 	var assert = require$$5$1;
 	var isAbsolute = requirePathIsAbsolute();
 	var common = requireCommon();
@@ -33848,7 +33827,7 @@ function requireGlob () {
 	minimatch.Minimatch;
 	var inherits = requireInherits();
 	var EE = require$$4.EventEmitter;
-	var path = require$$1$2;
+	var path = require$$1__default$1;
 	var assert = require$$5$1;
 	var isAbsolute = requirePathIsAbsolute();
 	var globSync = requireSync();
@@ -34600,8 +34579,8 @@ function requireRimraf () {
 	rimraf.sync = rimrafSync;
 
 	var assert = require$$5$1;
-	var path = require$$1$2;
-	var fs = require$$1;
+	var path = require$$1__default$1;
+	var fs = require$$1__default;
 	var glob = requireGlob();
 	var _0666 = parseInt('666', 8);
 
@@ -34969,8 +34948,8 @@ var hasRequiredMkdirp;
 function requireMkdirp () {
 	if (hasRequiredMkdirp) return mkdirp;
 	hasRequiredMkdirp = 1;
-	var path = require$$1$2;
-	var fs = require$$1;
+	var path = require$$1__default$1;
+	var fs = require$$1__default;
 	var _0777 = parseInt('0777', 8);
 
 	mkdirp = mkdirP.mkdirp = mkdirP.mkdirP = mkdirP;
@@ -35080,8 +35059,8 @@ function requireTemp () {
 	if (hasRequiredTemp) return temp$1.exports;
 	hasRequiredTemp = 1;
 	(function (module, exports$1) {
-		let fs   = require$$1;
-		let path = require$$1$2;
+		let fs   = require$$1__default;
+		let path = require$$1__default$1;
 		let cnst = require$$2$2;
 
 		let os         = require$$0;
@@ -37145,7 +37124,7 @@ function requireManifest () {
 		/* eslint @typescript-eslint/no-require-imports: 0 */
 		const os = require$$0;
 		const cp = require$$2$1;
-		const fs = require$$1;
+		const fs = require$$1__default;
 		function _findMatch(versionSpec, stable, candidates, archFilter) {
 		    return __awaiter(this, void 0, void 0, function* () {
 		        const platFilter = os.platform();
@@ -37405,10 +37384,10 @@ function requireToolCache () {
 	const core = __importStar(requireCore());
 	const io = __importStar(requireIo());
 	const crypto = __importStar(require$$0$1);
-	const fs = __importStar(require$$1);
+	const fs = __importStar(require$$1__default);
 	const mm = __importStar(requireManifest());
 	const os = __importStar(require$$0);
-	const path = __importStar(require$$1$2);
+	const path = __importStar(require$$1__default$1);
 	const httpm = __importStar(requireLib());
 	const semver = __importStar(requireSemver$2());
 	const stream = __importStar(require$$9);
@@ -40801,7 +40780,7 @@ async function installWeeder(ghcVersion) {
     const url = `${ARTIFACT_PREFIX}/weeder-${ghcVersion}-${os}-${arch}.${ext}`;
     const archive = await toolCacheExports.downloadTool(url);
     const temp = await extract(archive);
-    return require$$1__namespace.join(temp, "weeder");
+    return require$$1.join(temp, "weeder");
 }
 async function getWeederVersion(weeder) {
     const { exitCode, stdout } = await execExports.getExecOutput(weeder, ["--version"]);
@@ -40836,7 +40815,7 @@ async function run() {
         const log = await temp.path({ suffix: ".json" });
         await coreExports.group("Logging weeds data", async () => {
             coreExports.info(`Writing weeds data to ${log}`);
-            require$$1__namespace$1.writeFileSync(log, JSON.stringify(weeds));
+            require$$1$1.writeFileSync(log, JSON.stringify(weeds));
             coreExports.setOutput("log", log);
         });
         if (weeds.length > 0) {

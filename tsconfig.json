@@ -29,11 +29,5 @@
     "target": "ES2022"
   },
   "exclude": ["__tests__", "coverage", "dist", "node_modules", "lib"],
-  "include": ["src"],
-  "ts-node": {
-    "compilerOptions": {
-      "module": "CommonJS",
-      "moduleResolution": "node"
-    }
-  }
+  "include": ["src"]
 }
