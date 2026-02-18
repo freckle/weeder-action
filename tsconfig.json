@@ -12,7 +12,7 @@
     "allowUnusedLabels": false,
     "noEmitOnError": true,
     "removeComments": true,
-    "module": "CommonJS",
+    "module": "Node16",
     "esModuleInterop": true,
     "strict": true
   },
