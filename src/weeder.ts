@@ -4,7 +4,7 @@ import * as path from "path";
 import * as tc from "@actions/tool-cache";
 import semver from "semver";
 
-import { type Weed, parseWeeds } from "./weed";
+import { type Weed, parseWeeds } from "./weed.js";
 
 export async function runWeeder(
   ghcVersion: string,
