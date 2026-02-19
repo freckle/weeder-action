@@ -28,6 +28,6 @@
     "removeComments": true,
     "target": "ES2022"
   },
-  "exclude": ["__tests__", "coverage", "dist", "node_modules", "lib"],
+  "exclude": ["__tests__", "coverage", "dist", "node_modules"],
   "include": ["src"]
 }
