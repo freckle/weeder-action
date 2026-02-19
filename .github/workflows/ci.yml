@@ -2,41 +2,23 @@ name: CI
 
 on:
   pull_request:
+  push:
+    branches:
+      - main
 
 jobs:
-  build:
+  test-typescript:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-node@v6
         with:
-          cache: yarn
+          cache: npm
           node-version-file: ".nvmrc"
-      - run: yarn install
-      - run: yarn build
-      - run: yarn test
+      - run: npm ci
+      - run: npm run ci-test
 
-      # Upload the (potentially) updated dist/index.js file and use that in the
-      # integration tests. This ensures that PRs that haven't updated it (e.g.
-      # Renovate) will be testing the dist/index.js that will be released.
-      - uses: actions/upload-artifact@v6
-        with:
-          name: dist
-          path: dist/index.js
-
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v6
-      - uses: actions/setup-node@v6
-        with:
-          cache: yarn
-          node-version-file: ".nvmrc"
-      - run: yarn install
-      - run: yarn lint
-
-  tests:
-    needs: build
+  test-action:
     runs-on: ubuntu-latest
 
     strategy:
@@ -47,10 +29,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v6
-      - uses: actions/download-artifact@v7
-        with:
-          name: dist
-          path: dist # overwrite dist/index.js
 
       - id: stack
         uses: freckle/stack-action@v5
@@ -69,14 +47,68 @@ jobs:
           jq '.[] | .identifier' '${{ steps.weeder.outputs.log }}' |
             grep -F goodbyeWorld
 
-  # This Job will only run (and fail) if the tests matrix fails. This way, we
-  # can make it our required status (skipped == green) rather than having to
-  # maintain a required status per element of the tests matrix.
+  check-dist:
+    name: Check dist/
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        id: setup-node
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Remove dist/ Directory
+        id: remove-dist
+        run: npx rimraf ./dist
+
+      - name: Install Dependencies
+        id: install
+        run: npm ci
+
+      - name: Build dist/ Directory
+        id: build
+        run: npm run bundle
+
+      # This will fail the workflow if the `dist/` directory is different than
+      # expected.
+      - name: Compare Directories
+        id: diff
+        run: |
+          if [ ! -d dist/ ]; then
+            echo "Expected dist/ directory does not exist. See status below:"
+            ls -la ./
+            exit 1
+          fi
+          if [ "$(git diff --ignore-space-at-eol --text dist/ | wc -l)" -gt "0" ]; then
+            echo "Detected uncommitted changes after build. See status below:"
+            git diff --ignore-space-at-eol --text dist/
+            exit 1
+          fi
+
+      # If `dist/` was different than expected, upload the expected version as a
+      # workflow artifact.
+      - if: ${{ failure() && steps.diff.outcome == 'failure' }}
+        name: Upload Artifact
+        id: upload
+        uses: actions/upload-artifact@v6
+        with:
+          name: dist
+          path: dist/
+
   test:
-    needs: tests
-    if: ${{ failure() || cancelled() }}
+    if: always()
+    needs:
+      - check-dist
+      - test-typescript
+      - test-action
     runs-on: ubuntu-latest
     steps:
-      - run: |
-          echo "Upstream Jobs have failed or been cancelled"
-          exit 1
+      - uses: re-actors/alls-green@release/v1
+        with:
+          jobs: ${{ toJSON(needs) }}
