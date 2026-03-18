@@ -1,3 +1,5 @@
+jest.mock("@actions/tool-cache", () => ({}), { virtual: true });
+
 import { cleanWeederVersion } from "./weeder";
 
 describe("cleanWeederVersion", () => {
