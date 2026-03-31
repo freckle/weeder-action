@@ -5,10 +5,10 @@
   "description": "Action description",
   "main": "lib/main.js",
   "scripts": {
-    "build": "tsc --noEmit && esbuild src/main.ts --bundle --platform=node --target=node20 --outfile=dist/index.js --minify",
+    "build": "tsc -p tsconfig.build.json --noEmit && esbuild src/main.ts --bundle --platform=node --target=node20 --outfile=dist/index.js --minify",
     "format": "prettier --write \"**/*.ts\"",
     "format-check": "prettier --check \"**/*.ts\"",
-    "test": "NODE_OPTIONS='--experimental-vm-modules' jest",
+    "test": "vitest run",
     "lint": "eslint",
     "readme": "npx action-docs -u && prettier --write README.md"
   },
