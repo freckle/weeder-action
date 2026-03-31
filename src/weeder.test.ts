@@ -1,6 +1,8 @@
-jest.mock("@actions/tool-cache", () => ({}), { virtual: true });
+import { vi } from "vitest";
 
-import { cleanWeederVersion } from "./weeder.js"
+vi.mock("@actions/tool-cache", () => ({}));
+
+import { cleanWeederVersion } from "./weeder.js";
 
 describe("cleanWeederVersion", () => {
   describe("valid version strings", () => {
