@@ -2,14 +2,6 @@
 # yarn lockfile v1
 
 
-"@actions/core@^2.0.3":
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/@actions/core/-/core-2.0.3.tgz#b05e8cf407ab393e5d10282357a74e1ee2315eee"
-  integrity sha512-Od9Thc3T1mQJYddvVPM4QGiLUewdh+3txmDYHHxoNdkqysR1MbCT+rFOtNUxYAz+7+6RIsqipVahY2GJqGPyxA==
-  dependencies:
-    "@actions/exec" "^2.0.0"
-    "@actions/http-client" "^3.0.2"
-
 "@actions/core@^3.0.0":
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/@actions/core/-/core-3.0.0.tgz#89cb07c119e9b46a649ad5f355e77de9b3108cf8"
@@ -31,14 +23,6 @@
   integrity sha512-6xH/puSoNBXb72VPlZVm7vQ+svQpFyA96qdDBvhB8eNZOE8LtPf9L4oAsfzK/crCL8YZ+19fKYVnM63Sl+Xzlw==
   dependencies:
     "@actions/io" "^3.0.2"
-
-"@actions/http-client@^3.0.2":
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/@actions/http-client/-/http-client-3.0.2.tgz#3db9c83af9d29d51ac8c30b45bc17f7014beb1b2"
-  integrity sha512-JP38FYYpyqvUsz+Igqlc/JG6YO9PaKuvqjM3iGvaLqFnJ7TFmcLyy2IDrY0bI0qCQug8E9K+elv5ZNfw62ZJzA==
-  dependencies:
-    tunnel "^0.0.6"
-    undici "^6.23.0"
 
 "@actions/http-client@^4.0.0":
   version "4.0.0"
