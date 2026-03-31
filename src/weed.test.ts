@@ -1,4 +1,4 @@
-import { parseWeed } from "./weed";
+import { parseWeed } from "./weed.js"
 
 describe("parseWeed", () => {
   it("parses a weed from one line of weeder output", () => {
