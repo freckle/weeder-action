@@ -1,6 +1,6 @@
 jest.mock("@actions/tool-cache", () => ({}), { virtual: true });
 
-import { cleanWeederVersion } from "./weeder";
+import { cleanWeederVersion } from "./weeder.js"
 
 describe("cleanWeederVersion", () => {
   describe("valid version strings", () => {

@@ -12,9 +12,11 @@
     "allowUnusedLabels": false,
     "noEmitOnError": true,
     "removeComments": true,
-    "module": "CommonJS",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "esModuleInterop": true,
-    "strict": true
+    "strict": true,
+    "isolatedModules": true
   },
   "include": ["./src/**/*"],
   "exclude": ["./src/**/*.test.ts"]
