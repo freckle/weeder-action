@@ -23,5 +23,5 @@ outputs:
       Path to a file containing found weeds in JSON format; a list of objects
       with the keys `identifier`, `file`, and `line`.
 runs:
-  using: "node20"
+  using: "node24"
   main: "dist/index.js"
