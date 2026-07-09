@@ -29,7 +29,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
-    "@types/node": "^24.13.2",
+    "@types/node": "^24.13.3",
     "@vercel/ncc": "^0.44.1",
     "action-docs": "^2.5.1",
     "eslint": "^10.6.0",
