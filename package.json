@@ -32,7 +32,7 @@
     "@types/node": "^24.13.3",
     "@vercel/ncc": "^0.44.1",
     "action-docs": "^2.5.1",
-    "eslint": "^10.8.0",
+    "eslint": "^10.8.1",
     "jsdom": "^30.0.1",
     "prettier": "^3.9.6",
     "ts-node": "^10.9.2",
