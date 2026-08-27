@@ -30,7 +30,7 @@
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@types/node": "^24.13.3",
-    "@vercel/ncc": "^0.44.1",
+    "@vercel/ncc": "^0.45.0",
     "action-docs": "^2.5.1",
     "eslint": "^10.9.1",
     "jsdom": "^30.0.1",
