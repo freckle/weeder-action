@@ -1,15 +1,18 @@
 {
   "name": "weeder-action",
   "version": "0.0.0",
+  "private": true,
   "type": "module",
-  "description": "Action description",
-  "main": "lib/main.js",
+  "description": "Annotate unused functions in a Haskell project",
   "scripts": {
     "build": "tsc -p tsconfig.build.json && ncc build lib/main.js --minify",
     "format": "prettier --write \"**/*.ts\"",
     "format-check": "prettier --check \"**/*.ts\"",
     "test": "vitest run",
+    "coverage": "vitest run --coverage",
+    "typecheck": "tsc --noEmit",
     "lint": "eslint",
+    "knip": "knip",
     "readme": "npx action-docs -u && prettier --write README.md"
   },
   "repository": {
@@ -22,22 +25,22 @@
     "@actions/core": "^3.0.1",
     "@actions/exec": "^3.0.0",
     "@actions/tool-cache": "^4.0.0",
-    "@types/semver": "^7.8.0",
-    "@types/temp": "^0.9.4",
     "semver": "^7.8.5",
     "temp": "^0.9.4"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@types/node": "^24.13.3",
+    "@types/semver": "^7.8.0",
+    "@types/temp": "^0.9.4",
     "@vercel/ncc": "^0.45.0",
-    "action-docs": "^2.5.1",
+    "@vitest/coverage-v8": "^4.1.11",
     "eslint": "^10.9.1",
-    "jsdom": "^30.0.1",
+    "knip": "^6.34.0",
     "prettier": "^3.9.6",
-    "ts-node": "^10.9.2",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.69.0",
     "vitest": "^4.1.11"
-  }
+  },
+  "packageManager": "pnpm@11.24.0+sha512.bd27e345e976dcb0be0b7a1228217b049a817e21b1f355c90dbe7dc46671895a8bc1e6d06c24554505ea93ea0b45f489a27ec1bfbc8de6a9659fca0f16fa0000"
 }
