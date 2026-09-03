@@ -19,11 +19,6 @@ jobs:
           cache: pnpm
           node-version-file: ".nvmrc"
       - run: pnpm install --frozen-lockfile
-      - run: pnpm format-check
-      - run: pnpm typecheck
-      - run: pnpm lint
-      - run: pnpm knip
-      - run: pnpm coverage
       - run: pnpm build
 
       # Upload the (potentially) updated dist/index.js file and use that in the
@@ -34,9 +29,8 @@ jobs:
           name: dist
           path: dist/index.js
 
-  # `build` already runs `pnpm lint`. This job exists only because the `main`
-  # ruleset requires a status check named `lint`; delete it once that ruleset
-  # requires `build` instead.
+  # The `main` ruleset requires a status check named `lint`; this job carries
+  # every non-build quality gate so `build` above stays build-only.
   lint:
     runs-on: ubuntu-latest
     steps:
@@ -47,7 +41,11 @@ jobs:
           cache: pnpm
           node-version-file: ".nvmrc"
       - run: pnpm install --frozen-lockfile
+      - run: pnpm format-check
+      - run: pnpm typecheck
       - run: pnpm lint
+      - run: pnpm knip
+      - run: pnpm coverage
 
   tests:
     needs: build
