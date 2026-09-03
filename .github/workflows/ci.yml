@@ -2,19 +2,29 @@ name: CI
 
 on:
   pull_request:
+  push:
+    branches: main
+
+permissions:
+  contents: read
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
       - uses: actions/setup-node@v7
         with:
-          cache: yarn
+          cache: pnpm
           node-version-file: ".nvmrc"
-      - run: yarn install
-      - run: yarn build
-      - run: yarn test
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm format-check
+      - run: pnpm typecheck
+      - run: pnpm lint
+      - run: pnpm knip
+      - run: pnpm coverage
+      - run: pnpm build
 
       # Upload the (potentially) updated dist/index.js file and use that in the
       # integration tests. This ensures that PRs that haven't updated it (e.g.
@@ -24,16 +34,20 @@ jobs:
           name: dist
           path: dist/index.js
 
+  # `build` already runs `pnpm lint`. This job exists only because the `main`
+  # ruleset requires a status check named `lint`; delete it once that ruleset
+  # requires `build` instead.
   lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
       - uses: actions/setup-node@v7
         with:
-          cache: yarn
+          cache: pnpm
           node-version-file: ".nvmrc"
-      - run: yarn install
-      - run: yarn lint
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm lint
 
   tests:
     needs: build

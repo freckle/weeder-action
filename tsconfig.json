@@ -3,13 +3,10 @@
   "compilerOptions": {
     "rootDir": "./src",
     "outDir": "./lib",
-    "allowJs": true,
-    "target": "ES2022",
-    "noImplicitAny": true,
+    "target": "ES2023",
+    "lib": ["ES2023"],
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "strictNullChecks": true,
-    "noImplicitThis": true,
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
     "noEmitOnError": true,
@@ -19,7 +16,7 @@
     "esModuleInterop": true,
     "strict": true,
     "isolatedModules": true,
-    "types": ["vitest/globals"]
+    "types": ["node", "vitest/globals"]
   },
   "include": ["./src/**/*"]
 }
