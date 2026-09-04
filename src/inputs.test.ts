@@ -10,7 +10,7 @@ vi.mock(import('@actions/core'), () => {
   } as never
 })
 
-describe('getInputs', () => {
+describe(getInputs.name, () => {
   it('reads every action input', () => {
     vi.mocked(core.getInput).mockImplementation(name =>
       name === 'ghc-version' ? '9.6.6' : 'subdir'

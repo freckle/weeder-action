@@ -1,6 +1,6 @@
 import {parseWeed, parseWeeds} from './weed.js'
 
-describe('parseWeed', () => {
+describe(parseWeed.name, () => {
   it('parses a weed from one line of weeder output', () => {
     const result = parseWeed('src/Main.hs:42: Main.goodbyeWorld')
 
@@ -24,7 +24,7 @@ describe('parseWeed', () => {
   })
 })
 
-describe('parseWeeds', () => {
+describe(parseWeeds.name, () => {
   it('parses every weed line and drops the rest', () => {
     const stdout = [
       'src/Lib.hs:7: Lib.goodbyeWorld',
