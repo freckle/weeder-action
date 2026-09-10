@@ -1,19 +1,19 @@
-import * as core from "@actions/core";
+import * as core from '@actions/core'
 
 export type inputs = {
-  ghcVersion: string;
-  weederArguments: string[];
-  workingDirectory: string;
-  fail: boolean;
-};
+  ghcVersion: string
+  weederArguments: string[]
+  workingDirectory: string
+  fail: boolean
+}
 
 export function getInputs(): inputs {
   return {
-    ghcVersion: core.getInput("ghc-version", { required: true }),
-    weederArguments: core.getMultilineInput("weeder-arguments", {
-      required: true,
+    ghcVersion: core.getInput('ghc-version', {required: true}),
+    weederArguments: core.getMultilineInput('weeder-arguments', {
+      required: true
     }),
-    workingDirectory: core.getInput("working-directory", { required: true }),
-    fail: core.getBooleanInput("fail", { required: true }),
-  };
+    workingDirectory: core.getInput('working-directory', {required: true}),
+    fail: core.getBooleanInput('fail', {required: true})
+  }
 }
