@@ -1,6 +1,6 @@
-import {parseWeed} from './weed.js'
+import {parseWeed, parseWeeds} from './weed.js'
 
-describe('parseWeed', () => {
+describe(parseWeed.name, () => {
   it('parses a weed from one line of weeder output', () => {
     const result = parseWeed('src/Main.hs:42: Main.goodbyeWorld')
 
@@ -21,5 +21,25 @@ describe('parseWeed', () => {
     const result = parseWeed('src/Main.hs:hi: Main.goodbyeWorld')
 
     expect(result).toBeNull()
+  })
+})
+
+describe(parseWeeds.name, () => {
+  it('parses every weed line and drops the rest', () => {
+    const stdout = [
+      'src/Lib.hs:7: Lib.goodbyeWorld',
+      'Other output: invalid config: x',
+      'app/Main.hs:12: Main.unused',
+      ''
+    ].join('\n')
+
+    expect(parseWeeds(stdout)).toEqual([
+      {file: 'src/Lib.hs', line: 7, identifier: 'Lib.goodbyeWorld'},
+      {file: 'app/Main.hs', line: 12, identifier: 'Main.unused'}
+    ])
+  })
+
+  it('returns no weeds for output with none', () => {
+    expect(parseWeeds('')).toEqual([])
   })
 })
