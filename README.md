@@ -33,11 +33,22 @@ steps:
 | name                | description                                                               | required | default              |
 | ------------------- | ------------------------------------------------------------------------- | -------- | -------------------- |
 | `ghc-version`       | <p>Full version of GHC your project uses, to ensure HIE compatibility</p> | `true`   | `""`                 |
-| `weeder-arguments`  | <p>Arguments to pass when invoking weeder</p>                             | `false`  | `--require-hs-files` |
+| `weeder-arguments`  | <p>Arguments to pass when invoking weeder (newline-separated)</p>         | `false`  | `--require-hs-files` |
 | `working-directory` | <p>Change to this directory before operating</p>                          | `false`  | `.`                  |
 | `fail`              | <p>Fail the build if unused functions found?</p>                          | `false`  | `true`               |
 
 <!-- action-docs-inputs action="action.yml" -->
+
+> [!NOTE]
+>
+> Multiple `weeder-arguments` must be newline-separated, for example
+>
+> ```yaml
+> weeder-arguments: |
+>   --require-hs-files
+>   --config
+>   ../weeder.toml
+> ```
 
 <!-- action-docs-outputs action="action.yml" -->
 

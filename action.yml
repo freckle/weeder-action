@@ -7,7 +7,7 @@ inputs:
     required: true
   weeder-arguments:
     description: |
-      Arguments to pass when invoking weeder
+      Arguments to pass when invoking weeder (newline-separated)
     default: --require-hs-files
   working-directory:
     description: |
