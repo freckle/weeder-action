@@ -1,10 +1,6 @@
-import {vi} from 'vitest'
-
-vi.mock('@actions/tool-cache', () => ({}))
-
 import {cleanWeederVersion} from './weeder.js'
 
-describe('cleanWeederVersion', () => {
+describe(cleanWeederVersion.name, () => {
   describe('valid version strings', () => {
     const examples = [
       ['a simple version', 'weeder version 2.8.0\n', '2.8.0'],

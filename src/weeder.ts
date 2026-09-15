@@ -6,6 +6,10 @@ import semver from 'semver'
 
 import {type Weed, parseWeeds} from './weed.js'
 
+// runWeeder and its helpers below are the I/O-heavy orchestration layer
+// (download/extract a real binary, exec it) covered by the `tests` CI job
+// running the real action against the example fixtures, not by unit tests.
+/* v8 ignore start */
 export async function runWeeder(ghcVersion: string, args: string[], cwd: string): Promise<Weed[]> {
   const weeder = await core.group('Install weeder', async () => {
     return await installWeeder(ghcVersion)
@@ -55,6 +59,7 @@ async function getWeederVersion(weeder: string): Promise<string> {
 
   return cleanWeederVersion(stdout)
 }
+/* v8 ignore stop */
 
 // extracted for testing
 export function cleanWeederVersion(input: string): string {
@@ -72,6 +77,7 @@ export function cleanWeederVersion(input: string): string {
   throw new Error(`Could not parse weeder version from: ${input}`)
 }
 
+/* v8 ignore start */
 async function execWeeder(
   weeder: string,
   args: string[],
@@ -82,3 +88,4 @@ async function execWeeder(
   const weeds = parseWeeds(stdout)
   return {exitCode, weeds}
 }
+/* v8 ignore stop */
